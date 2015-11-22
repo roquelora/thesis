@@ -26,18 +26,18 @@ The antenna pointer block points precisely an antenna and a camera towards the a
 This block generates the GPS measurements based in the real states received from the UAV sensor block. First, it reduced the frequency of the data from 100 Hz to 4 Hz, which is the common frequency found in modern GPS. Afterwards, it adds noise to the measurements as described in section \ref{sub:gps_meas_error}. Finally, it waits a random time to send each measurement to the EKF/DEKF block where they are implemented in the estimation.
 \pagebreak
 \subsection{Camera}
-The camera block simulates a camera mounted in the antenna pointer working at a 10 Hz frequency. If the aircraft is in the field of view of the camera, the position in the camera frame is sent to the EKF/DEKF to introduce this data to the estimation of the states. In this simulation we assume that there is an algorithm which detects the UAV as long as it is in the field of view of the camera. The model of this camera is explained in \ref{sub:camera_model}.
+The camera block simulates a camera mounted in the antenna pointer working at a 10 Hz frequency. If the aircraft is in the field of view of the camera, the position in the camera frame is sent to the EKF/DEKF to introduce this data to the estimation of the states. In this simulation we assume that there is an algorithm which detects the UAV as long as it is in the field of view of the camera. The model of this camera is explained in section \ref{sub:camera_model}.
 
 \subsection{EKF/DEKF}
-This block process the information sent by the GPS and camera blocks to estimate the states of the aircraft. The processing of this data is done by the Delayed Extended Kalman Filter, defined in \ref{sub:DEKF}, which compensates for the delays in the GPS measurements. For comparison purposes the Extended Kalman Filter defined in \ref{sub:EKF} is used, to see how the estimates are impacted if we disregards the delays in the measurements.
+This block process the information sent by the GPS and camera blocks to estimate the states of the aircraft. The processing of this data is done by the Delayed Extended Kalman Filter, defined in section \ref{sub:DEKF}, which compensates for the delays in the GPS measurements. For comparison purposes the Extended Kalman Filter defined in section \ref{sub:EKF} is used, to see how the estimates are impacted if we disregards the delays in the measurements.
 In this work, we assume that the delays in the camera measurements can be neglected since the processing unit and the camera are connected directly.  
 
 \subsection{Pointer}
-This block calculates the angles to command and the controller of the antenna pointer. First, the pointer uses the estimated states sent by the EKF/DEKF block to calculate the azimuth and elevation angles required to point towards the aircraft. Next, the angles are sent to a simple proportional controller, defined by equations \ref{eq:servo_commands}-\ref{eq:servo_commands}, which actuates the servos in the antenna pointer and feedbacks the actual angles to the camera and the EKF/DEKF blocks. 
+This block calculates the angles to command and the controller of the antenna pointer. First, the pointer uses the estimated states sent by the EKF/DEKF block to calculate the azimuth and elevation angles required to point towards the aircraft. Next, the angles are sent to a simple proportional controller, defined by equations (\ref{eq:servo_commands})-(\ref{eq:servo_commands}), which actuates the servos in the antenna pointer and feedbacks the actual angles to the camera and the EKF/DEKF blocks. 
 \pagebreak
 \section{3-D Plot}
 
-The purpose of this block is to recollect all the data and plot the aircraft, the antenna pointer and the field of view of the camera mounted in the antenna pointer in real time.
+The purpose of this block is to collect all the data and plot the aircraft, the antenna pointer and the field of view of the camera mounted in the antenna pointer in real time.
 \begin{figure}[h!]
   \centering
   \includegraphics[scale=0.7]{./Simulink/3Dplot}
