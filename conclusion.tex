@@ -1,0 +1,33 @@
+\chapter{Conclusion}
+\label{ch:conclusion}
+
+%La conclusion debe tener una estructura clara la cual pueda mantener la atencion del lector y proveer una sequencia convincente de como el estudio puede inequivocamente y rigurosamente identificar conocimiento que permite sustentar la teoria.
+%La conclusion, al igual que la tesis, debe tener un inicio (introduccion), una seccion media (sintesis de los descubrimientos empiricos y respuestas de las preguntaste de la investigacion), implicaciones teoricas y un final (direcciones para investigaciones futuras).
+
+%Estrategias para desarrollar una buena introduccion:
+%-Empieza con una oracion que haga referencia al tema principal de la tesis.
+%-Indica la importancia del tema en cuestion
+%-Reafirma las preguntas de la investigacion como fueron presentadas en el capitulo introductorio.
+
+
+The purpose of this study was to develop an algorithm which could point an antenna and a camera towards a UAS. The reasons and motivations to this problem are primarily two. The first motivation was the Line-Of-Sight requirement of the Federal Aviation Administration which limits UAV missions to operate if and only if the aircraft is in the field of view of the operator. The existing method, is to keep an eye on the UAV with binoculars, which is prone to miss the plane frequently. Likewise, the other reason for the study was to improve the reliability of the mission by assuring the communication link with the aircraft, which can be achieved with a trustworthy tracking system. \linebreak
+\linebreak
+The main hypotheses that we had were the following three.
+\begin{enumerate}
+\item The coupling of a camera with a GPS improves the state estimations of an aircraft.
+\item Delayed and out of sequence measurements affect the state estimations in an inversely proportional way. A special Kalman filter needs to be used to address this scenario.
+\end{enumerate}
+With the empirical findings we were able to conclude that:
+\begin{enumerate}
+\item If a camera is coupled with a GPS for state estimation in a Kalman filter, the errors will be less than those of using a GPS alone. This is more evident when the GPS measurements are delayed.
+\item State estimations are adversely affected by an increase of delays in the measurements. Errors were significantly decreased when a special filter called Delayed Extended Kalman filter was used, opposed to using the regular Extended Kalman filter.
+\end{enumerate}
+\pagebreak
+
+One of the impacts of this study is the possibility of a modification of the Line-Of-Sight requirement of the FAA, allowing tracking systems to comply with this regulation as long as they are equipped with a camera. Therefore, freeing the operator of this task. Furthermore, tracking systems could implement these findings to improve their robustness, making more reliable the mission as a whole.
+
+This research could be extended with the implementation of the antenna pointer system, to run more extensively tests. On the other hand, the same principle could be analyzed where the only sensors available were a camera and a signal strength receiver. Moreover, a scenario where communication or measurements are lost could be an interesting case of study.
+
+This thesis has offered an approach to UAV tracking systems to improve the existing process, and was conducted in a simulated platform, MATLAB and Simulink, to have a strictly controlled environment. For simplifying purposes we made two main assumptions that need to be mentioned. One of the premises was that there was an image recognition algorithm which always recognized the aircraft as long as it were in the field-of-view of the camera. The second assumption was that the delays in the camera measurements were so small that they could be neglected without a big impact of the estimations.
+
+As a support of what is often reasoned, an algorithm which consider the delays in the measurements and the OOSM problem, such as the Delayed Extended Kalman filter, reduces the estimates errors. Hence, a system which regards these conditions, can efficiently track a UAS increasing the reliability of the whole mission.

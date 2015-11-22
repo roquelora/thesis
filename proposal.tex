@@ -1,0 +1,66 @@
+ 
+\documentclass[ee,msthesis,proposal]{usuthesis}
+\usepackage{todonotes}
+
+% Author and Title Information
+\author{Roque Lora}
+\title{Implementation of UAS tracking system with out-of-sequence measurements using GPS and IMU sensors coupled with image processing} 
+
+% The Committee
+\majorprof{Dr. Rajnikant Sharma}
+\firstreader{Dr. Reese Fullmer}
+\secondreader{Dr. Todd K. Moon}
+
+% Graduate Dean
+\graddean{Dr. Mark R. McLellan}
+\deantitle{Vice President for Research and Dean of the School of Graduate Studies}
+
+% Degree Information
+\degree{Master of Science}
+\month{October}
+\gradyear{2014}
+
+\begin{document}
+	\preliminaries   % set frontmatter style
+    \maketitle
+    %\makecopyright        % optional
+
+Recently, the uses of Unmanned Aerial Systems (UAS) have increased dramatically in both civilian and military applications. Additionally, this technology is growing more trustworthy and versatile making possible its implementation in more and more scenarios. The importance of UAS tracking systems relies on the fact that the reliability of the mission depends mostly on having a good link between the aircraft and the Ground Control Station(GCS), which can be assured with a good tracking system. This is somewhat apparent for applications that require real-time feedback, because if we do not track the UAS properly we could lose the link and no feedback would be sent back. Lets put for example a military mission where an aircraft supports an advancing troop in enemy territory.  The decisions made by the leader of the troop are greatly influenced by the feedback of the UAS. If the communication between the UAS and the GCS is lost, there would not be any feedback from the UAS and the safety of the soldiers could be compromised. Moreover, in a civilian application such as disaster relief for an earthquake, the aircraft could be equipped with a Thermal Imaging Camera to detect heat sources. It would identify warm bodies under the rubble in real time so the help could get there as soon as possible. On the other hand, if the communication is lost between the UAS and the GCS, we might miss information that could lead to detecting a survivor.
+
+A target tracking system such as an antenna pointer, requires the estimate of the position to be very accurate, otherwise it could lose the target and therefore the feedback as well. To increase the accuracy, the system should take in consideration several things.  The noise of each different sensor, the frequency that we receive new measurements, the communication and processing delays of the system which produces out of sequence measurements (OOSM), and a good model of the system. The Federal Aviation Administration has set some requirements for the operation of UAS. The one that concern us is the Line-Of-Sight requirement, which constrains the aircraft mission within the visual field of the operator. The existing method of verifying that this constrain is fulfilled, is a person following the aircraft with binoculars, which is very hard and he can lose it frequently. Therefore, the need of automating the process. In this thesis we pretend to solve this problem, pointing automatically and antenna and a camera towards the UAS so we never lose the UAS and also increasing the operation range.
+
+The coupling of GPS, IMU and visual odometry, is a practice that has been increasingly used when position estimation is required. The reason is that GPS and IMU are relatively accurate at low speed since their frequency is close to the 4 Hz. On the other hand, the camera is more accurate and can handle higher speeds since its working speed is at 30 Hz and above, but they have the limitation of the distance between itself and the object so it can detect a target. Therefore, we can have good precision at low and high velocities and close and long range. But this comes with a drawback. As a result of having different sensors sending data at different rates and with different communication or processing delays, measurements from the same target arrive out-of-sequence in other words the OOSM problem arises.
+
+From more than two decades, this problem have been addressed in several different ways.
+
+An Extended Kalman Filter was used to estimate the position of an UAS using a camera and then coupled with an IMU. The results were that the position error is reduced by almost an order of magnitude when just using the camera and when the camera and IMU are used \cite{Kelly2008}.
+
+The case of multi-step lag with arbitrary arriving order have been studied as well. In \cite{Zhang2012} it was proposed three different approaches trying to look for optimality. The study yielded that the Complete In-Sequence Information Fixed Point Smoothing method was the optimal approach, but it lacks simplicity. 
+
+The initial studies about the OOSM are presented in \cite{Hilton1993}, where a negative-time update technique is developed using the criteria of minimum mean-square error. It was a better method than the old Cooperative Engagement Capabilities technique. 
+
+In \cite{Bar-Shalom2002} the exact state update equation for the OOSM problem is presented and compared to two suboptimal algorithms. Each method is tied to the situations where they should be used contrasting simplicity against optimality. 
+
+In \cite{Mallick2001} a linear minimum variance estimation algorithm was extended to handle multiple lags and dynamics models. And exposed that as the number of lags increases, the state estimation accuracy decreases.
+The same problem is addressed in \cite{Bar-Shalom2002a}. The one-step lag OOSM solution is generalized to solve problems when multiple lags arise. This extension comes with a small significant lower storage requirement and a small (1\%) degradation of MSE performance. A two-step method was presented in \cite{Lanzkron2004} which requires one more step to update the state at the OOSM time. 
+
+ The first optimal algorithm for the general multi-step lag problem appeared in \cite{Nettleton2001}. This paper presents an exact solution modifying the information form of the Kalman Filter and storing n-steps values of the filter.
+ 
+ Two optimal algorithm were presented in \cite{Zhang2002} to approach the multi-step OOSM problem using fixed-point smoothing. It was shown that both of these algorithms are flexible and relatively simple but highly computational demanding.
+ 
+ Another smoothing-based algorithm was proposed in \cite{Mallick2002} in the case of multi-sensor multi-target ground moving target tracking problem. It concluded that discarding OOSM can lead to severe degradation in the state estimation. Also these two methods have better accuracy than the previous buffering method approach. 
+ 
+A unified sub-optimal Bayesian approach is proposed in \cite{Challa2002} for the multi-lag OOSM problem. This algorithm develops on the basis of a fixed-lag smoothing framework and its solution reduces to an Augmented State Kalman Filter.
+
+An extension of the particle filter approach can be found in \cite{Orton2005} where it compares it results with the Extended Kalman Filter, showing that both have similar performance.
+
+ The work of \cite{Plett2007} develops an out-of-order sigma-point Kalman Filter for solving the multi-lag OOSM in a single measurement vector and using the batch-form update. This method is equivalently complex per iteration as the sigma-point Kalman Filter but it requires more iterations.
+ 
+The contribution of this thesis to the field will be to implement the Delayed Kalman Filter to solve the OOSM problem and to record the accuracy, efficiency and if its feasible in a real system.
+
+%Although abstract probabilistic models can be useful for design, there remains a gap between high-level modular models and low-level stochastic reaction-network models. Modular models implicitly assume functional independence among a circuit's components. Current tools provide little aid for establishing that independence a-priori, or for verifying independence during simulation. To help fill this gap, MPDE was devised by  \cite{Winstead2010}. This method tracks the marginal statistical evolution of species in a reaction system. Whereas traditional Stochastic Simulation Algorithms (SSAs) generate a scalar value for each species at each time increment, the MPDE method generates the marginal probability density function for each species in the system. The goal of this approach is to represent the system's functional behavior using an intuitive signal-plus-noise model, while staying failthful to the physics of the reaction network. Researchers frequently use some form of mean-plus-deviation representation when publishing SSA results, but there is currently no generally applicable procedure for abstracting species' statistics in this format.
+
+
+\references{IEEEabrv,library}{IEEEtran}
+
+\end{document}

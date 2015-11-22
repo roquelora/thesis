@@ -1,0 +1,155 @@
+ 
+ \newcommand{\cursiva}[1]{\textit{#1}}
+ 
+ 
+\chapter{Kalman Filter Equations, Camera Model and GPS Error Model}
+\label{ch:Kalman_Filter}
+
+\section{Introduction}
+
+\section{Fixed-Wing Motion Model}
+	
+\section{Kalman Filter}
+
+A Kalman Filter is an optimal recursive data processing algorithm. One of the aspect of this optimality is that the Kalman Filter incorporates all the information that can be provided to it. It processes all available measurements, regardless of their precision, to estimate the current value of the variables of interest, with use of knowledge of the system and measurement device dynamics, the statistical description of the system noises, measurement errors and uncertainty in the dynamics models, and any available information about initial conditions of the variables of interest. One of the interesting characteristic of the Kalman Filter is that it does not require all previous data to be kept in memory and reprocessed every time a new measurement is taken, making the filter implementation pore practical. The filter is actually a data processing algorithm, and therefore it incorporates discrete-time measurement samples rather than continuous time inputs. Often the variables of interest, some finite number of quantities to describe the state of the system, cannot be measured directly, and some means of inferring these values from the available data must be generated, thus the need of the filter. This inference is complicated by the facts that the system is typically driven by inputs other than our own known controls and that the relationships among the various state variables and measured outputs are known only with some degree of uncertainty. Furthermore, any measurement will be corrupted to some degree by noise, biases, and device inaccuracies, and so a means of extracting valuable information from a noisy signal must be provided as well. There may also be a number of different measuring devices, each with its own particular dynamics and error characteristics, that provide some information about a particular variable, and it would be desirable to combine their outputs in a systematic and optimal manner. A Kalman Filter combines all available measurement data, plus prior knowledge about the system and measuring devices, to produce an estimate of the desired variables in such a manner that the error is minimized statistically. In other words, if we were to run a number of candidate filters many times for some application, then the average results of the Kalman Filter would be better than the average results of any other. \cite{Maybeck1979}
+
+\subsection{Discrete Kalman Filter}
+
+There are several different forms of the Kalman Filter but the form particularly useful for Small UAS applications is the continuous-propagation, discrete-measurement Kalman Filter.
+Lets assume that the linear system dynamics are given by
+\begin{equation}\label{eq:linear_model}
+\begin{aligned}
+\dot{x}=Ax+Bu+\xi\\
+y[n]=Cx[n]+\eta[n],
+\end{aligned}
+\end{equation}
+where \begin{math} y[n] = y(t_n) \end{math} is the \begin{math} n^{th} \end{math} sample of \begin{math} y \end{math}, \begin{math} x[n] = x(t_n) \end{math} is the \begin{math} n^{th} \end{math} sample of \begin{math} x \end{math}, \begin{math} \eta \end{math} is the measurement noise at time \begin{math} t_n\end{math}, \begin{math} \xi \end{math} is a zero-mean Gaussian random process with covariance \begin{math} Q \end{math}, and \begin{math} \eta[n] \end{math} is a zero-mean Gaussian random variable with covariance \begin{math} R \end{math}. The random process \begin{math} \xi \end{math} is called the process noise and represents modeling error and disturbances on the system. The random variable \begin{math} \eta \end{math} is called the measurement noise and represents noise on the sensors. The covariance \begin{math} R \end{math} can usually be estimated from sensor calibration, but the covariance \begin{math} Q \end{math} is generally unknown and therefore becomes a system parameter that can be tuned to improve the performance of the observer. Note that the sample rate does not need to be fixed. \linebreak
+The continuous-discrete Kalman Filter has the form
+\begin{align}
+\dot{\hat{x}}&=A\hat{x}+Bu \\
+\hat{x}^+&=\hat{x}^-+L(y(t_n)-C\hat{x}^-).
+\end{align}
+Define the estimation error as \begin{math} \tilde{x}=x-\hat{x} \end{math}. The covariance of the estimation error at time \begin{math} t \end{math} is given by
+\begin{align}
+P(t)&\triangleq E{\tilde{x}(t)\tilde{x}(t)^\top}.
+\end{align}
+Note that \begin{math} P(t) \end{math} is symmetric and positive semi-definite, therefore, its eigenvalues are real and non-negative. Also, small eigenvalues of \begin{math} P(t) \end{math} imply small variance, which implies low average estimation error. Therefore, we would like to choose \begin{math} L(t) \end{math} to minimize the eigenvalues of \begin{math} P(t) \end{math}. Recall that
+\begin{align*}
+tr(P)&=\sum_{i-1}^{n}\lambda_i, 
+\end{align*}
+where \begin{math} tr(P) \end{math} is the trace of \begin{math} P \end{math}, and \begin{math} \lambda_i \end{math} are the eigenvalues of P. Therefore, minimizing \begin{math} tr(P) \end{math} minimizes the estimation error covariance. The Kalman Filter is derived by finding \begin{math} L \end{math} to minimize \begin{math} tr(P) \end{math}.
+The equations of the Kalman Filter can be categorized into two groups: \textit{time update equations} and \textit{measurement update equations}. The first, is responsible for projecting forward in time the current state and error covariance estimates to obtain \textit{a priori} estimate for the next time step. The Measurement update equations are responsible for incorporating a new measurement into the a priori estimate to obtain an improved \textit{a posteriori} estimate.
+
+\subsubsection{Time Update Equations}
+Differentiating \begin{math} \tilde{x} \end{math} we get
+\begin{align*}
+\dot{\tilde{x}}&= \dot{x}-\dot{\hat{x}} \\
+			   &= Ax+Bu+\xi - A\hat{x}-Bu\\
+			   &= A\tilde{x}+\xi.
+\end{align*}
+Solving the differential equation with initial condition \begin{math} \tilde{x}_0 \end{math} we obtain
+\begin{align*}
+\tilde{x}(t) &= e^{At}\tilde{x}_0+\int_{0}^{t}e^{A(t-\tau)}\xi(\tau)d\tau.
+\end{align*}
+Computing the evolution of P, the error covariance we get
+\begin{align*}
+\dot{P}&= \frac{d}{dt}E{\tilde{x}\dot{\tilde{x}}^\top} \\
+	   &= E(\dot{\tilde{x}}\tilde{x}^\top+\tilde{x}\dot{\tilde{x}}^\top) \\
+	   &= E (A\tilde{x}\tilde{x}^\top + \xi\tilde{x}^\top+\tilde{x}\tilde{x}^\top A^\top+\tilde{x}\xi^\top) \\
+	   &= AP + PA^\top +E(\xi\tilde{x}^\top)+E(\tilde{x}\xi^\top)
+\end{align*}
+
+Calculating \begin{math} E(\tilde{x}\xi^\top)  \end{math} as
+\begin{align*}
+E(\tilde{x}\xi^\top)&= E(e^{At}\tilde{x}_0\xi^\top (t)+\int\limits_{0}^{t}e^{A(t-\tau)}\xi(\tau)\xi^\top (\tau)d\tau)\\
+					&= \int\limits_{0}^{t}e^{A(t-\tau)}Q\delta(t-\tau)d\tau \\
+					&= \frac{1}{2}Q,
+\end{align*}
+where the \begin{math} \frac{1}{2} \end{math} is because we only use half of the area inside the delta function. Therefore, since \begin{math} Q \end{math} is symmetric we have that \begin{math} P \end{math} evolves between measurements as
+\begin{align*}
+\dot{P}&=AP+PA^\top +Q.
+\end{align*}
+
+\subsubsection{Measurement Update Equations}
+When a measurement is received, we have that
+\begin{align*}
+\tilde{x}^+&= x-\hat{x}^+\\
+		   &= x-\hat{x}^- -L(Cx+\eta-C\hat{x}^-)\\
+		   &= \tilde{x}^- -LC\tilde{x}^- -L\eta.
+\end{align*}
+
+On the other hand we have that
+\begin{align} \label{eq:P_posteriori}
+P^+ &= E(\tilde{x}^+\tilde{x}^{+^\top}) \nonumber\\
+	&= E[(\tilde{x}^- -LC\tilde{x}^- -L\eta)(\tilde{x}^- -LC\tilde{x}^- -L\eta)^\top] \nonumber\\
+	&= E[\tilde{x}^-\tilde{x}^{-^\top}-\tilde{x}^-\tilde{x}^{-^\top}C^\top L^\top-\tilde{x}^-\eta^\top L^\top \nonumber\\
+	& \quad  -LC\tilde{x}^-\tilde{x}^{-^\top}+LC\tilde{x}^-\tilde{x}^{-^\top}C^\top L^\top+LC\tilde{x}^-\eta^\top L^\top \nonumber\\
+	& \quad  -L\eta\tilde{x}^{-^\top}+L\eta\tilde{x}^{-^\top}C^\top L^\top+L\eta\eta^\top L^\top] \nonumber\\
+	&= P^- -P^-C^\top L^\top-LCP^-+LCP^-C^\top L^\top+LRL^\top.
+\end{align}
+Since \begin{math} \eta  \end{math} and \begin{math} \tilde{x}^-  \end{math} are independent, \begin{math} E(\tilde{x}^-\eta^\top L^\top)=E(L\eta\tilde{x}^{-^\top})=0  \end{math}. \\
+To continue our derivation, the following matrix relationship will be required:
+\begin{align*}
+\frac{\partial}{\partial A}tr(BAD)&=B^\top D^\top \\
+\frac{\partial}{\partial A}tr(BAA^\top)&=2AB, if B = B^\top.
+\end{align*}
+Our goal is to minimize \begin{math} tr(P^+)  \end{math} by choosing \begin{math} L  \end{math}. A required condition is that
+\begin{align*}
+\frac{\partial}{\partial L}tr(P^+)&=-P^-C^\top -P^-C^\top + 2LCP^-C^\top +2LR=0\\
+&\Rightarrow 2L(R+CP^-C^\top)=2P^-C^\top \\
+&\Rightarrow L = P^-C^\top (R+CP^-C^\top)^{-1}.
+\end{align*}
+If we substitute into equation ~\ref{eq:P_posteriori} we get
+\begin{align*}
+P^+&= P^-+P^-C^\top(R+CP^-C^\top)^{-1}CP^- -P^-C^\top(R+CP^-C^\top)^{-1}CP^- \\
+   &  \quad +P^-C^\top(R+CP^-C^\top)^{-1}(CP^-C^\top+R)(R+CP^-C^\top)^{-1}CP^- \\
+   &= P^- -P^-C^\top(R+CP^-C^\top)^{-1}CP^-\\
+   &= (I-P^-C^\top(R+CP^-C^\top)^{-1}C)P^- \\
+   &= (I-LC)P^-.
+\end{align*}
+
+Summarizing the Kalman Filter we have two sets of equations. The time update equations, which propagate the state estimates
+\begin{align}
+\dot{\hat{x}}&= A\hat{x}+Bu\\
+\dot{P}&= AP+PA^\top+Q,
+\end{align}
+where \begin{math} \hat{x} \end{math} is the estimate of the state, and \begin{math} P \end{math} is the symmetric covariance matrix of the estimation error. The second set of equations, the measurement update equations, are used when a measurement is received from the \begin{math} i^{th}\end{math} sensor, which updates the state estimates and error covariance with the following equations
+\begin{align}
+L_i &= P^-C_i^\top(R_i+C_iP^-C_i^\top)^{-1} \\
+P^+ &= (I-L_iC_i)P^- \\
+\hat{x}^+ &= \hat{x}^- +L_i(y_i(t_n)-C_i\hat{x}^-),
+\end{align}
+where \begin{math} L_i \end{math} is called the Kalman gain for the \begin{math} i^{th}\end{math} sensor.
+
+\subsection{Extended Kalman Filter}
+
+In the previous section we assumed that the system propagation model and measurement model are linear. However, for many applications, including the one used in this thesis, the system propagation model and the measurement model are nonlinear. Therefore the model in equation ~\ref{eq:linear_model} becomes
+\begin{align}
+\hat{x}&=f(x,u)+\xi \\
+y[n]&=h(x[n],u[n])+\eta[n],
+\end{align}
+
+This case is called the Extended Kalman Filter. For the EKF, the state propagation and update equations use the nonlinear model, but the propagation and update of the error covariance use the Jacobian of \textit{f} for \textit{A}, and the Jacobian of \textit{h} for \textit{C}.
+
+Pseudo-code for the Continuous Discrete Extended Kalman Filter is given below
+\begin{enumerate}[nosep]
+\item Initialize: $ \hat{x}=\chi_0 $.
+\item Pick an output sample rate $T_{out}$ that is less than the sample rates of the sensors.
+\item At each sample time $T_{out}$:
+\item \textbf{for} $ i=1 $ to $ N $ \textbf{do} [Time Update Equations]
+\item \begin{math} \quad \hat{x} = \hat{x} + \frac{T_{out}}{N}f(\hat{x},u) \end{math}
+\item \begin{math} \quad A = \frac{\partial f}{\partial x}(\hat{x},u)\end{math}
+\item \begin{math} \quad P=P+\frac{T_{out}}{N}(AP+PA^\top+Q) \end{math}
+\item \textbf{end for}
+\item \textbf{if} Measurement has been received from sensor \textit{i} \textbf{then} [Measurement Update Equation]
+\item \begin{math} \quad C_i=\frac{\partial h_i}{\partial x}(\hat{x},u[n])\end{math}
+\item \begin{math} \quad L_i=PC_i^\top(R_i+C_i P C_i^\top)^{-1}\end{math}
+\item \begin{math} \quad P=(I-L_iC_i)P\end{math}
+\item \begin{math} \quad \hat{x}=\hat{x}+L_i(y_i[n]-h(\hat{x},u[n]))\end{math}
+\item \textbf{end if}
+\end{enumerate}
+
+\subsection{Delayed Extended Kalman Filter}
+In real world applications, measurements usually have computing or communication delays which cannot be disregarded. If the delays are not fixed, some measurements can arrive in an out of sequence fashion, which worsen the estimations. The EKF has been modified to address this scenario, resulting in what we call the Delayed Extended Kalman Filter. 
+This new filter uses the delayed measurements to estimate the states of the system at the time the measurements were taken, and then it propagates the estimations forward in time. Therefore, it requires to store the state estimations, the error covariance matrices and the delayed measurements for as many time steps as the maximum probable delay.
+

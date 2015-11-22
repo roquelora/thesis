@@ -1,0 +1,383 @@
+% This file was created with JabRef 2.10.
+% Encoding: Cp1252
+
+
+@Article{Bar-Shalom2002,
+  Title                    = {{Update with out-of-sequence measurements in tracking: Exact solution}},
+  Author                   = {Bar-Shalom, Yaakov},
+  Journal                  = {IEEE Transactions on Aerospace and Electronic Systems},
+  Year                     = {2002},
+  Number                   = {3},
+  Pages                    = {769--778},
+  Volume                   = {38},
+
+  Abstract                 = { In target tracking systems measurements are typically collected in "scans" or "frames" and then they are transmitted to a processing center. In multisensor tracking systems that operate in a centralized manner, there are usually different time delays in transmitting the scans or frames from the various sensors to the center. This can lead to situations where measurements from the same target arrive out of sequence. Such "out-of-sequence" measurement (OOSM) arrivals can occur even in the absence of scan/frame communication time delays. The resulting "negative-time measurement update" problem, which is quite common in real multisensor systems, was solved previously only approximately in the literature. The exact state update equation for such a problem is presented. The optimal and two suboptimal algorithms are compared on a number of realistic examples, including a GMTI (ground moving target indicator) radar case.},
+  File                     = {:C$\backslash$:/Users/Roque/Documents/Thesis/Papers/Update with Out-of-Sequence Measurements in Tracking- Exact Solution.pdf:pdf}
+}
+
+@Article{Bar-Shalom2002a,
+  Title                    = {{One-step solution for the general out-of-sequence-measurement problem in tracking}},
+  Author                   = {Bar-Shalom, Yaakov and Mallick, Mahendra and Chen, Huimin and Washburn, Robert},
+  Journal                  = {IEEE Aerospace Conference Proceedings},
+  Year                     = {2002},
+  Pages                    = {1551--1559},
+  Volume                   = {4},
+
+  Abstract                 = { In multisensor target tracking systems measurements from the same target can arrive out of sequence. Such "out-of-sequence" measurement (OOSM) arrivals can occur even in the absence of scan/frame communication time delays. The resulting problem - how to update the current state estimate with an "older" measurement - is a nonstandard estimation problem. It was solved first (suboptimally, then optimally) for the case where the OOSM lies between the two last measurements, i.e, its lag is less than a sampling interval - the 1-step-lag case. The real world has, however, OOSMs with arbitrary lag. Subsequently, the suboptimal algorithm was extended to the case of an arbitrary (multistep) lag, but the resulting algorithm required a significant amount of storage. The present work shows how the 1-step-lag algorithms can be generalized to handle an arbitrary (multistep) lag while preserving their main feature of solving the update problem without iterating. This leads only to a very small (a few percent) degradation of MSE performance. The incorporation of an OOSM into the data association process is also discussed. A realistic example with two GMTI radars is presented. The consistency of the proposed algorithm is also evaluated and it is found that its calculated covariances are reliable.},
+  File                     = {:C$\backslash$:/Users/Roque/Documents/Thesis/Papers/One-step solution for the general out-of-sequence measurement problem in tracking.pdf:pdf},
+  ISBN                     = {078037231X}
+}
+
+@InCollection{Beard2010,
+  Title                    = {{Sensors for MAVs}},
+  Author                   = {Beard, Randal W. and McLan, Timothy W.},
+  Booktitle                = {Small Unmanned Aircraft: Theory and Practice},
+  Year                     = {2010}
+}
+
+@InCollection{Beard2010a,
+  Title                    = {{State Estimation}},
+  Author                   = {Beard, Randal W. and McLan, Timothy W.},
+  Booktitle                = {Small Unmanned Aircraft: Theory and Practice},
+  Year                     = {2010}
+}
+
+@InCollection{Beard2010b,
+  Title                    = {{Vision-guided Navigation}},
+  Author                   = {Beard, Randal W. and McLan, Timothy W.},
+  Booktitle                = {Small Unmanned Aircraft: Theory and Practice},
+  Year                     = {2010}
+}
+
+@Article{Bethke2007,
+  Title                    = {{Cooperative vision based estimation and tracking using multiple UAVs}},
+  Author                   = {Bethke, Brett and Valenti, Mario and How, Jonathan},
+  Journal                  = {\ldots in Cooperative Control and Optimization},
+  Year                     = {2007},
+  Pages                    = {1--12},
+
+  File                     = {:C$\backslash$:/Users/Roque/Documents/Thesis/Papers/Cooperative Vision Based Estimation and Tracking Using Multiple UAVs.pdf:pdf},
+  Keywords                 = {cooperative multi uav vision,tracking estimation},
+  Url                      = {http://link.springer.com/chapter/10.1007/978-3-540-74356-9\_11}
+}
+
+@Article{Challa2002,
+  Title                    = {{A fixed-lag smoothing solution to out-of-sequence information fusion problems ∗}},
+  Author                   = {Challa, Subhash and Evans, Robin J and Wang, Xuezhi and Legg, Jonathan},
+  Year                     = {2002},
+  Number                   = {4},
+  Pages                    = {325--348},
+  Volume                   = {2},
+
+  File                     = {:C$\backslash$:/Users/Roque/Documents/Thesis/Papers/A fixed-lag smoothing solution to out-of-sequence.pdf:pdf},
+  Keywords                 = {1,fixed-lag smoothing,in a multi-sensor centralized,introduction,measurements,networked sensors,oosi,oosm,oost,out-of-sequence,out-of-sequence information,out-of-sequence tracks,sensors produce,smoothing,target tracking,time delayed measurements,tracking system}
+}
+
+@Article{Chen2003,
+  Title                    = {{Object Tracking and Positioning on Video Images}},
+  Author                   = {Chen, CF and Chen, MH},
+  Journal                  = {\ldots , Joonwhoan Lee. Object Tracking \ldots},
+  Year                     = {2003},
+
+  File                     = {:C$\backslash$:/Users/Roque/Documents/Thesis/Papers/OBJECT TRACKINGAND POSITIONING ON VIDEO IMAGES.pdf:pdf},
+  Keywords                 = {matching,object,target,tracking,video},
+  Url                      = {http://isprsserv.ifp.uni-stuttgart.de/proceedings/XXXV/congress/comm5/papers/689.pdf}
+}
+
+@Article{DElia2010,
+  Title                    = {{Simulation and Multi-Target Tracking}},
+  Author                   = {D'Elia, E and Tavian, Carlo and Zugno, Alberto},
+  Journal                  = {University of Padua. Report \ldots},
+  Year                     = {2010},
+
+  File                     = {:C$\backslash$:/Users/Roque/Documents/Thesis/Papers/Simulation and Multi-Target Tracking.pdf:pdf},
+  Url                      = {http://automatica.dei.unipd.it/tl\_files/utenti/lucaschenato/Classes/PSC09\_10/PSC10\_Gruppo2\_slides.pdf}
+}
+
+@Article{Ferreira2006,
+  Title                    = {{Stereo Vision Based Target Tracking for a Gun Turret Utilizing Low Performance Components}},
+  Author                   = {Ferreira, Gideon},
+  Year                     = {2006},
+  Number                   = {January},
+
+  File                     = {:C$\backslash$:/Users/Roque/Documents/Thesis/Papers/Stereo Vision Based Target Tracking for a Gun Turret Utilizing Low Performance Components.pdf:pdf}
+}
+
+@Article{Hilton1993,
+  Title                    = {{Tracking with time-delayed data in multisensor systems}},
+  Author                   = {Hilton, RD and Martin, DA and Blair, WD},
+  Year                     = {1993},
+
+  File                     = {:C$\backslash$:/Users/Roque/Documents/Thesis/Papers/Tracking with time-delayed data in multisensor systems.pdf:pdf},
+  Url                      = {http://oai.dtic.mil/oai/oai?verb=getRecord\&metadataPrefix=html\&identifier=ADA271334}
+}
+
+@Article{Iovenitti1997,
+  Title                    = {{Three-dimensional measurement using a single camera and target tracking}},
+  Author                   = {Iovenitti, PG},
+  Year                     = {1997},
+
+  File                     = {:C$\backslash$:/Users/Roque/Documents/Thesis/Papers/Three-dimensional measurement using a single camera and target tracking.pdf:pdf},
+  Url                      = {http://researchbank.swinburne.edu.au/vital/access/services/Download/swin:7440/SOURCE1}
+}
+
+@Article{Julier2005,
+  Title                    = {{Fusion of time delayed measurements with uncertain time delays}},
+  Author                   = {Julier, S.J. and Uhlmann, J.K.},
+  Journal                  = {Proceedings of the 2005, American Control Conference, 2005.},
+  Year                     = {2005},
+  Pages                    = {4028--4033},
+
+  Abstract                 = { In this paper we consider the problem of estimating the state of a dynamic system from a sequence of observations that are imprecisely timestamped. We argue that this problem can be addressed using the covariance union (CU) technique, and we demonstrate its application in a particular example.},
+  File                     = {:C$\backslash$:/Users/Roque/Documents/Thesis/Papers/Fusion of time delayed measurements with uncertain time delays.pdf:pdf},
+  ISBN                     = {0780390989},
+  Keywords                 = {Filtering,Kalman filtering,Sensor fusion}
+}
+
+@Article{Kelly2008,
+  Title                    = {{Combined visual and inertial navigation for an unmanned aerial vehicle}},
+  Author                   = {Kelly, Jonathan and Saripalli, Srikanth and Sukhatme, GS},
+  Journal                  = {Field and Service Robotics},
+  Year                     = {2008},
+  Pages                    = {255--264},
+  Volume                   = {42},
+
+  Abstract                 = {We describe an UAV navigation system which combines stereo visual odometry with inertial measurements from an IMU. Our approach fuses the motion estimates from both sensors in an extended Kalman filter to determine vehicle position and attitude. We present results using data from a robotic helicopter, in which the visual and inertial system produced a final position estimate within 1\% of the measured GPS position, over a flight distance of more than 400 meters. Our results show that the combination of visual and inertial sensing reduced overall positioning error by nearly an order of magnitude compared to visual odometry alone.},
+  File                     = {:C$\backslash$:/Users/Roque/Documents/Thesis/Papers/Combined Visual and Inertial Navigation for an Unmanned Aerial Vehicle.pdf:pdf},
+  Url                      = {http://link.springer.com/chapter/10.1007/978-3-540-75404-6\_24}
+}
+
+@Article{Lanzkron2004,
+  Title                    = {{A two-step method for out-of-sequence measurements}},
+  Author                   = {Lanzkron, PJ and Bar-Shalom, Y},
+  Journal                  = {Aerospace Conference, 2004. \ldots},
+  Year                     = {2004},
+  Pages                    = {2036--2041},
+
+  File                     = {:C$\backslash$:/Users/Roque/Documents/Thesis/Papers/A two-step method for out-of-sequence measurements.pdf:pdf},
+  ISBN                     = {0780381556},
+  Url                      = {http://ieeexplore.ieee.org/xpls/abs\_all.jsp?arnumber=1367986}
+}
+
+@Article{Larsen1998,
+  Title                    = {{Incorporation of time delayed measurements in a discrete-time Kalman filter}},
+  Author                   = {Larsen, T.D. and Andersen, N.a.},
+  Journal                  = {Decision and Control, \ldots},
+  Year                     = {1998},
+  Number                   = {December},
+  Pages                    = {3972--3977},
+  Volume                   = {4},
+
+  Abstract                 = {In many practical systems there is a delay in some of the sensor devices, for instance vision measurements that may have a long processing time. How to fuse these measurements in a Kalman filter is not a trivial problem if the computational delay is critical. Depending on how much time there is at hand, the designer has to make trade offs between optimality and computational burden of the filter. In this paper various methods in the literature along with a new method proposed by the authors will be presented and compared. The new method is based on \&amp;ldquo;extrapolating\&amp;rdquo; the measurement to present time using past and present estimates of the Kalman filter and calculating an optimal gain for this extrapolated measurement},
+  File                     = {:C$\backslash$:/Users/Roque/Documents/Thesis/Papers/Incorporation of Time Delayed Measurements in a  discrete-time Kalman Filter.pdf:pdf},
+  ISBN                     = {0780343948},
+  Url                      = {http://ieeexplore.ieee.org/xpls/abs\_all.jsp?arnumber=761918}
+}
+
+@Article{Liebe1998,
+  Title                    = {{VIGIL: a GPS-based target-tracking system}},
+  Author                   = {Liebe, CC},
+  Journal                  = {Aerospace/ \ldots},
+  Year                     = {1998},
+
+  File                     = {:C$\backslash$:/Users/Roque/Documents/Thesis/Papers/VIGIL a GPS based target-tracking system.pdf:pdf},
+  Url                      = {http://proceedings.spiedigitallibrary.org/proceeding.aspx?articleid=948014}
+}
+
+@Article{Lim2012,
+  Title                    = {{Introduction of Smart Monitoring and Tracing System Using GPS Information}},
+  Author                   = {Lim, CS and Kim, HC and Cha, SK and Choi, JH},
+  Journal                  = {ijcce.org},
+  Year                     = {2012},
+  Number                   = {2},
+  Pages                    = {107--110},
+  Volume                   = {1},
+
+  File                     = {:C$\backslash$:/Users/Roque/Documents/Thesis/Papers/Introduction of Smart Monitoring and Tracking System Using GPS Information.pdf:pdf},
+  Url                      = {http://ijcce.org/papers/30-N018.pdf}
+}
+
+@Article{Mallick2001,
+  Title                    = {{Advances in asynchronous and decentralized estimation}},
+  Author                   = {Mallick, M. and Coraluppi, S. and Carthel, C.},
+  Journal                  = {\ldots Conference, 2001, IEEE \ldots},
+  Year                     = {2001},
+  Pages                    = {1873--1888},
+  Volume                   = {4},
+
+  Abstract                 = {Two key challenges associated with fusion of information in large-scale systems are the asynchronous nature of information flow and the consistency requirements associated with decentralized processing. This paper provides contributions in both these areas. First, we build on an existing minimum variance estimation algorithm for out-of-sequence processing of sensor measurements, extending the algorithm to handle multiple lags and multiple dynamic models. We study the performance of the algorithms with numerical examples. Second, we establish a connection between the maximum entropy of a partially known multivariable Gaussian distribution and a particular Bayesian network, whose structure is based on the available information. The connection leads to a useful methodology for identifying missing information in systems described by Bayesian networks, a key tool in developing algorithms for information flow in decentralized systems},
+  File                     = {:C$\backslash$:/Users/Roque/Documents/Thesis/Papers/Advances in asynchronous and decentralized estimation.pdf:pdf},
+  ISBN                     = {0780365992},
+  Url                      = {http://ieeexplore.ieee.org/xpls/abs\_all.jsp?arnumber=931505}
+}
+
+@Article{Mallick2002,
+  Title                    = {{Multi-sensor multi-target tracking using out-of-sequence measurements}},
+  Author                   = {Mallick, M and Krant, J and Bar-Shalom, Y},
+  Journal                  = {Information Fusion, 2002. \ldots},
+  Year                     = {2002},
+  Number                   = {Fusion},
+  Pages                    = {135--142},
+
+  File                     = {:C$\backslash$:/Users/Roque/Documents/Thesis/Papers/Multi-sensor multi-target tracking using out-of-sequence measurements.pdf:pdf},
+  Keywords                 = {gmti,ground moving target indicator,measurements,mht,multiple hypothesis,oosm,oosm filtering,oosm tracking,out-of-sequence measurement,tracking},
+  Url                      = {http://ieeexplore.ieee.org/xpls/abs\_all.jsp?arnumber=1021142}
+}
+
+@Article{Mao2007,
+  Title                    = {{Design of an extended kalman filter for uav localization}},
+  Author                   = {Mao, Guoqiang and Drake, Sam and Anderson, BDO},
+  Journal                  = {Information, Decision and \ldots},
+  Year                     = {2007},
+  Pages                    = {224--229},
+
+  Abstract                 = {Unmanned aerial vehicles (UAVs) are increasingly used in military and scientific research. Some miniaturized UAVs rely entirely on the Global Positioning System (GPS) for navigation. GPS is vulnerable to accidental or deliberate interference that can cause it to fail. It is not unusual, even in a benign environment, for a GPS outage to occur for periods of seconds to minutes. For UAVs relying solely on GPS for navigation such an event can be catastrophic. This paper proposes an extended Kalman filter approach to estimate the location of a UAV when its GPS connection is lost, using inter-UAV distance measurements. The results from a recent trial conducted by DSTO in Australia with three UAVs are presented. It is shown that the location of a manoeuvering UAV that has lost the GPS signal can be determined to an accuracy of within 40m of its true location simply by measuring the range to two other UAVs at known location, where the range measurement error has a zero mean and a standard deviation of 10m.},
+  File                     = {:C$\backslash$:/Users/Roque/Documents/Thesis/Papers/Design of EKF for UAV Localization.pdf:pdf},
+  Url                      = {http://ieeexplore.ieee.org/xpls/abs\_all.jsp?arnumber=4252506}
+}
+
+@Article{Martinez2011,
+  Title                    = {{On-board and ground visual pose estimation techniques for UAV control}},
+  Author                   = {Mart\'{\i}nez, Carol and Mondrag\'{o}n, IF},
+  Journal                  = {Journal of Intelligent \& \ldots},
+  Year                     = {2011},
+  Number                   = {1-4},
+  Pages                    = {301--320},
+  Volume                   = {61},
+
+  Abstract                 = {In this paper, two techniques to control UAVs (Unmanned Aerial Vehicles), based on visual information are presented. The first one is based on the detection and tracking of planar structures from an on-board camera, while the second one is based on the detection and 3D reconstruction of the position of the UAV based on an external camera system. Both strategies are tested with a VTOL (Vertical take-off and landing) UAV, and results show good behavior of the visual systems (precision in the estimation and frame rate) when estimating the helicopter’s position and using the extracted information to control the UAV.},
+  File                     = {:C$\backslash$:/Users/Roque/Documents/Thesis/Papers/On-board and Ground Visual Pose Estimation Techniques for UAV Control.pdf:pdf},
+  Keywords                 = {3D reconstruction,Computer vision,Homography estimation,Unmanned aerial vehicle,Visual servoing},
+  Url                      = {http://link.springer.com/article/10.1007/s10846-010-9505-9}
+}
+
+@Book{Maybeck1982,
+  Title                    = {{Stochastic Models, Estimation and Control: Volume 1}},
+  Author                   = {Maybeck, PS},
+  Year                     = {1979},
+  Volume                   = {1},
+
+  File                     = {:C$\backslash$:/Users/Roque/Downloads/maybeck\_ch1.pdf:pdf},
+  ISBN                     = {0124807011}
+}
+
+@Article{Mirisola2008,
+  Title                    = {{Tracking a Moving Target from a Moving Camera with Rotation-Compensated Imagery}},
+  Author                   = {Mirisola, LGB and Dias, Jorge},
+  Journal                  = {Intelligent Aerial Vehicles", I-Tech Publishing \ldots},
+  Year                     = {2008},
+
+  File                     = {:C$\backslash$:/Users/Roque/Documents/Thesis/Papers/InTech-Tracking\_a\_moving\_target\_from\_a\_moving\_camera\_with\_rotation\_compensated\_imagery.pdf:pdf},
+  Url                      = {http://www.intechopen.com/source/pdfs/5997/InTech-Tracking\_a\_moving\_target\_from\_a\_moving\_camera\_with\_rotation\_compensated\_imagery.pdf}
+}
+
+@Article{Nettleton2001,
+  Title                    = {{Delayed and asequent data in decentralized sensing networks}},
+  Author                   = {Nettleton, EW and Durrant-Whyte, HF},
+  Journal                  = {Intelligent \ldots},
+  Year                     = {2001},
+  Number                   = {2001},
+  Pages                    = {1--9},
+  Volume                   = {4571},
+
+  Abstract                 = {This paper presents an exact solution to the delayed data problem for the information form of the Kalman filter, together with its application to decentralised sensing networks. To date, the most common method of handling delayed data in sensing networks has been to use a conservative time alignment of the observation data with the filter time. However, by accounting for the correlation between the late data and the filter over the delayed period, an exact solution is possible. The inclusion of this information correlation term adds little extra complexity, and may be applied in an information filter update stage which is associative. The delayed data algorithm can also be used to handle data that is asequent or out of order. The asequent data problem is presented in a simple recursive information filter form. The information filter equations presented in this paper are applied in a decentralised picture compilation problem. This involves multiple aircraft tracking multiple ground targets and the construction of a single common tactical picture.},
+  File                     = {:C$\backslash$:/Users/Roque/Documents/Thesis/Papers/Delayed and sequent data in decentralized sensing networks.pdf:pdf},
+  Keywords                 = {decentralised information filter,delayed data},
+  Url                      = {http://spie.org/x648.html?product\_id=444148 http://proceedings.spiedigitallibrary.org/proceeding.aspx?articleid=901100}
+}
+
+@Article{Orton2005,
+  Title                    = {{Particle filters for tracking with out-of-sequence measurements}},
+  Author                   = {Orton, Matthew and Marrs, Alan},
+  Journal                  = {IEEE Transactions on Aerospace and Electronic Systems},
+  Year                     = {2005},
+  Number                   = {2},
+  Pages                    = {693--702},
+  Volume                   = {41},
+
+  Abstract                 = { An extension is presented to the particle filtering toolbox that enables nonlinear/non-Gaussian filtering to be performed in the presence of out-of-sequence measurements (OOSMs) with arbitrary lag, without the need to adopt linearising approximations in the filter and without the degradation of performance that would occur if the OOSMs were simply discarded. An estimate of the performance of the OOSM particle filter (OOSM-PF) is obtained for bearings-only tracking scenarios with a single target and a small number of sensors. These performance estimates are then compared with the posterior Cramer-Rao lower bound (CRLB) for the state estimate rms error and similar performance estimates obtained from the oosm extended Kalman filter (OOSM-EKF) algorithms recently introduced in the literature. For a mildly nonlinear bearings-only tracking problem the OOSM-PF and OOSM-EKF are shown to achieve broadly similar performance.},
+  File                     = {:C$\backslash$:/Users/Roque/Documents/Thesis/Papers/Particle filters for tracking with out-of-sequence measurements.pdf:pdf}
+}
+
+@Article{Plett2007,
+  Title                    = {{Out-of-order sigma-point Kalman filtering for target localization using cooperating unmanned aerial vehicles}},
+  Author                   = {Plett, Gregory L. and Zarzhitsky, Dimitri and Pack, Daniel J.},
+  Journal                  = {Lecture Notes in Control and Information Sciences},
+  Year                     = {2007},
+  Pages                    = {21--43},
+  Volume                   = {369},
+
+  Abstract                 = {This chapter outlines our research efforts toward developing a cooperative target localization method based on multiple autonomous unmanned aerial vehicles (UAVs) that are outfitted with heterogeneous sensors. The current focus of the research includes (1) optimizing the UAV trajectories to place them at desired locations at desired times to capture target locations, (2) cooperative sensor scheduling, and (3) intelligent fusing of multiple sensor measurements to accurately estimate the position and velocity of a target. The focus of this paper is the sensor-fusion task. One might consider addressing this problem using some formof Kalman filter. However, a complicating factor in the present application is that sensor readings arrive out-of-sequence to the sensor- fusion process. For example, there is non-deterministic latency in the inter- and intra-UAV communication channels. We address this problem by developing an out-of-order sigma-point Kalman filter (O3SPKF).},
+  File                     = {:C$\backslash$:/Users/Roque/Documents/Thesis/Papers/Out-of-order sigma-point Kalman �?ltering for target localization using cooperating unmanned aerial vehicles.pdf:pdf}
+}
+
+@Article{Sarwar2008,
+  Title                    = {{Modeling, analysis and simulation of a Pan Tilt Platform based on linear and nonlinear systems}},
+  Author                   = {Sarwar, I.S. and Malik, A.M.},
+  Journal                  = {Mechtronic and Embedded Systems and \ldots},
+  Year                     = {2008},
+  Pages                    = {147--152},
+
+  Abstract                 = {This paper deals with the modeling, analysis and controlled simulation (motion control) of a two degree of freedom pan tilt platform (PTP) for positioning or aiming a device. The PTP has two revolute joints. The PTP, with two degrees of freedom, is a device that makes it possible for the camera to point in a desired direction when mounted under a carrier such as an aircraft. The objective of this research work is to derive a linear and nonlinear control system of the PTP to point in a desired direction within allowable specifications. This paper covers the feedback control system with PD controllers for position control of pan and tilt mechanism. These PD controllers derived from linear system model are also used in nonlinear control system simulation. The nonlinear control system developed in this paper is nearest to the physical system. To perform the analysis and simulation, all the parameters involved in the system dynamics were identified. The practicality of this research work can be extended to a broad range of applications. The most apparent use is in security, where there is a strong emphasis on reliably neutralizing threats without risking human life. The unmanned aerial systems (i.e. the PTP on unmanned aerial vehicle) can provide significant reductions in manpower and risk to humans for critical security roles. The role of PTP has been increased significantly in the last few years in the security and defense applications.},
+  File                     = {:C$\backslash$:/Users/Roque/Documents/Thesis/Papers/Modeling, analysis and simulation of a Pan Tilt Platform based on linear and nonlinear systems. .pdf:pdf},
+  Url                      = {http://ieeexplore.ieee.org/xpls/abs\_all.jsp?arnumber=4735724}
+}
+
+@Article{Welch2006,
+  Title                    = {{An Introduction to the Kalman Filter}},
+  Author                   = {Welch, Greg and Bishop, Gary},
+  Journal                  = {In Practice},
+  Year                     = {2006},
+  Number                   = {1},
+  Pages                    = {1--16},
+  Volume                   = {7},
+
+  Abstract                 = {In 1960, R.E. Kalman published his famous paper describing a recursive solution to the discrete-data linear filtering problem. Since that time, due in large part to advances in digital computing, the Kalman filter has been the subject of extensive research and application, particularly in the area of autonomous or assisted navigation. The Kalman filter is a set of mathematical equations that provides an efficient computational (recursive) means to estimate the state of a process, in a way that minimizes the mean of the squared error. The filter is very powerful in several aspects: it supports estimations of past, present, and even future states, and it can do so even when the precise nature of the modeled system is unknown. The purpose of this paper is to provide a practical introduction to the discrete Kalman filter. This introduction includes a description and some discussion of the basic discrete Kalman filter, a derivation, description and some discussion of the extended Kalman filter, and a relatively simple (tangible) example with real numbers \& results.},
+  Chapter                  = {8},
+  Editor                   = {{Acm Press}, Addison-WesleyEditor},
+  Institution              = {University of North Carolina at Chapel Hill},
+  ISSN                     = {10069313},
+  Pmid                     = {20578276},
+  Publisher                = {Citeseer}
+}
+
+@Article{Yokochi2006,
+  Title                    = {{Extrinsic camera parameter estimation based-on feature tracking and GPS data}},
+  Author                   = {Yokochi, Yuji and Ikeda, Sei and Sato, Tomokazu and Yokoya, Naokazu},
+  Journal                  = {Computer Vision–ACCV 2006},
+  Year                     = {2006},
+
+  File                     = {:C$\backslash$:/Users/Roque/Documents/Thesis/Papers/Extrinsic Camera Parameter Estimation Based-on Feature Tracking and GPS Data.pdf:pdf},
+  Url                      = {http://link.springer.com/chapter/10.1007/11612032\_38}
+}
+
+@Article{Zhang2002,
+  Title                    = {{Optimal update with out-of-sequence measurements for distributed filtering}},
+  Author                   = {Zhang, Keshu and Li, XR},
+  Journal                  = {Information Fusion, 2002. Proceedings of the \ldots},
+  Year                     = {2002},
+  Number                   = {1},
+  Pages                    = {1519--1526},
+  Volume                   = {2},
+
+  Abstract                 = {This paper is concerned with optimal filtering in a distributed multiple sensor system with the so-called out-of-sequence measurements (OOSM). Based on best linear unbiased estimation (BLUE) fusion, we present two algorithms for updating with OOSM that are optimal for the information available at the time of update. Different minimum storages of information concerning the occurrence time of OOSMs are given for both algorithms. It is shown by analysis and simulation results that the two proposed algorithms are flexible and simple.},
+  File                     = {:C$\backslash$:/Users/Roque/Documents/Thesis/Papers/Optimal update with out-of-sequence measurements for distributed filtering.pdf:pdf},
+  Keywords                 = {BLUE,Kalman filter,Out of sequence measurement,Target tracking},
+  Publisher                = {IEEE Computer Society},
+  Url                      = {http://ieeexplore.ieee.org/xpls/abs\_all.jsp?arnumber=1020997}
+}
+
+@Article{Zhang2012,
+  Title                    = {{Optimal Update with Multiple Out-of-Sequence Measurements with Arbitrary Arriving Order}},
+  Author                   = {Zhang, Shuo and Bar-Shalom, Yaakov},
+  Journal                  = {Aerospace and Electronic Systems, \ldots},
+  Year                     = {2012},
+  Number                   = {4},
+  Pages                    = {3116--3132},
+  Volume                   = {48},
+
+  Abstract                 = {In multisensor target tracking systems receiving out-of-sequence measurements (OOSMs) from local sensors is a common situation. In the last decade many algorithms have been proposed to update with an OOSM optimally or suboptimally. However, what one faces in the real world is the multiple OOSMs, which arrive at the fusion center in, generally, arbitrary orders, e.g., in succession or interleaved with in-sequence measurements. A straightforward approach to deal with this multi-OOSM problem is by sequentially applying a given OOSM algorithm; however, this simple solution does not guarantee the optimal update under the multi-OOSM scenario. The work presented here discusses the differences between the single-OOSM processing and the multi-OOSM processing, and presents the general solution to the multi-OOSM problem, which is called the complete in-sequence information (CISI) approach. Given an OOSM, in addition to updating the state at the most recent time, the CISI approach also updates the states between the OOSM time and the most recent time, including the state at the OOSM time. Three novel CISI methods are developed in this paper: the information filter-equivalent measurement (IF-EqM) method, the CISI fixed-point smoothing (CISI-FPS) method and the CISI fixed-interval smoothing (CISI-FIS) method. Numerical examples are given to illustrate the optimality of these CISI methods under various multi-OOSM scenarios.},
+  File                     = {:C$\backslash$:/Users/Roque/Documents/Thesis/Papers/Optimal Update with Multiple Out-of-Sequence Measurements with Arbitrary Arriving Order.pdf:pdf},
+  Url                      = {http://ieeexplore.ieee.org/xpls/abs\_all.jsp?arnumber=6324681}
+}
+

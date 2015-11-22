@@ -1,0 +1,25 @@
+This is BibTeX, Version 0.99dThe top-level auxiliary file: thesis.aux
+A level-1 auxiliary file: abstract.aux
+A level-1 auxiliary file: publicabstract.aux
+A level-1 auxiliary file: dedication.aux
+A level-1 auxiliary file: acknowl.aux
+A level-1 auxiliary file: acronyms.aux
+A level-1 auxiliary file: introduction.aux
+A level-1 auxiliary file: background.aux
+A level-1 auxiliary file: sensors.aux
+A level-1 auxiliary file: simulation.aux
+A level-1 auxiliary file: results.aux
+A level-1 auxiliary file: discussion.aux
+A level-1 auxiliary file: conclusion.aux
+The style file: IEEEtran.bst
+Database file #1: IEEEabrv.bib
+Database file #2: library.bib
+-- IEEEtran.bst version 1.13 (2008/09/30) by Michael Shell.
+-- http://www.michaelshell.org/tex/ieeetran/bibtex/
+-- See the "IEEEtran_bst_HOWTO.pdf" manual for usage information.
+Warning--empty journal in Hilton1993
+Warning--empty journal in Challa2002
+Warning--missing publisher in Maybeck1979
+
+Done.
+(There were 3 warnings)
