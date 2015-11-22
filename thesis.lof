@@ -1,20 +1,20 @@
 \contentsline {figure}{\numberline {1.1}{\ignorespaces Antenna Pointer tracking an UAV\relax }}{2}
 \contentsline {figure}{\numberline {1.2}{\ignorespaces Out-Of-Sequence Measurement}}{2}
-\contentsline {figure}{\numberline {3.1}{\ignorespaces Antenna Pointer Block}}{33}
-\contentsline {figure}{\numberline {3.2}{\ignorespaces Antenna Pointer Block}}{34}
-\contentsline {figure}{\numberline {3.3}{\ignorespaces Antenna Pointer tracking a UAV.}}{36}
-\contentsline {figure}{\numberline {4.1}{\ignorespaces UAV Trajectory Comparison - GPS vs GPS and Camera}}{38}
-\contentsline {figure}{\numberline {4.2}{\ignorespaces North Position Error Comparison - GPS vs GPS and Camera}}{39}
-\contentsline {figure}{\numberline {4.3}{\ignorespaces East Position Error Comparison - GPS vs GPS and Camera}}{39}
-\contentsline {figure}{\numberline {4.4}{\ignorespaces Azimuth Error Comparison - GPS vs GPS coupled with Camera}}{40}
-\contentsline {figure}{\numberline {4.5}{\ignorespaces Elevation Error Comparison - GPS vs GPS coupled with Camera}}{40}
-\contentsline {figure}{\numberline {4.6}{\ignorespaces UAV Trajectory Comparison - EKF vs DEKF}}{41}
-\contentsline {figure}{\numberline {4.7}{\ignorespaces North Position Error Comparison - EKF vs DEKF}}{42}
-\contentsline {figure}{\numberline {4.8}{\ignorespaces East Position Error Comparison - EKF vs DEKF}}{42}
-\contentsline {figure}{\numberline {4.9}{\ignorespaces Azimuth Error Comparison - EKF vs DEKF}}{43}
-\contentsline {figure}{\numberline {4.10}{\ignorespaces Elevation Error Comparison - EKF vs DEKF}}{43}
-\contentsline {figure}{\numberline {4.11}{\ignorespaces UAV Trajectory Comparison - Different Delays}}{44}
-\contentsline {figure}{\numberline {4.12}{\ignorespaces North Position Error Comparison - Different Delays}}{45}
-\contentsline {figure}{\numberline {4.13}{\ignorespaces East Position Error Comparison - Different Delays}}{45}
-\contentsline {figure}{\numberline {4.14}{\ignorespaces Azimuth Error Comparison - Different Delays}}{46}
-\contentsline {figure}{\numberline {4.15}{\ignorespaces Elevation Error Comparison - Different Delays}}{46}
+\contentsline {figure}{\numberline {3.1}{\ignorespaces Antenna Pointer Block}}{34}
+\contentsline {figure}{\numberline {3.2}{\ignorespaces Antenna Pointer Block}}{35}
+\contentsline {figure}{\numberline {3.3}{\ignorespaces Antenna Pointer tracking a UAV.}}{37}
+\contentsline {figure}{\numberline {4.1}{\ignorespaces UAV Trajectory Comparison - GPS vs GPS and Camera}}{39}
+\contentsline {figure}{\numberline {4.2}{\ignorespaces North Position Error Comparison - GPS vs GPS and Camera}}{40}
+\contentsline {figure}{\numberline {4.3}{\ignorespaces East Position Error Comparison - GPS vs GPS and Camera}}{40}
+\contentsline {figure}{\numberline {4.4}{\ignorespaces Azimuth Error Comparison - GPS vs GPS coupled with Camera}}{41}
+\contentsline {figure}{\numberline {4.5}{\ignorespaces Elevation Error Comparison - GPS vs GPS coupled with Camera}}{41}
+\contentsline {figure}{\numberline {4.6}{\ignorespaces UAV Trajectory Comparison - EKF vs DEKF}}{42}
+\contentsline {figure}{\numberline {4.7}{\ignorespaces North Position Error Comparison - EKF vs DEKF}}{43}
+\contentsline {figure}{\numberline {4.8}{\ignorespaces East Position Error Comparison - EKF vs DEKF}}{43}
+\contentsline {figure}{\numberline {4.9}{\ignorespaces Azimuth Error Comparison - EKF vs DEKF}}{44}
+\contentsline {figure}{\numberline {4.10}{\ignorespaces Elevation Error Comparison - EKF vs DEKF}}{44}
+\contentsline {figure}{\numberline {4.11}{\ignorespaces UAV Trajectory Comparison - Different Delays}}{45}
+\contentsline {figure}{\numberline {4.12}{\ignorespaces North Position Error Comparison - Different Delays}}{46}
+\contentsline {figure}{\numberline {4.13}{\ignorespaces East Position Error Comparison - Different Delays}}{46}
+\contentsline {figure}{\numberline {4.14}{\ignorespaces Azimuth Error Comparison - Different Delays}}{47}
+\contentsline {figure}{\numberline {4.15}{\ignorespaces Elevation Error Comparison - Different Delays}}{47}

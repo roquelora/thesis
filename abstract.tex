@@ -11,7 +11,7 @@
 % A space is needed before the text starts so that the first paragraph
 % is indented properly.
 
-This work is about developing an algorithm to point an antenna and a camera towards a UAV. To achieve this, we will extend the Delayed Kalman Filter developed by \cite{Larsen1998}, and fuse it with the Extended Kalman Filter presented in \cite{Beard2010a}, to a Delayed Extended Kalman Filter that takes into account the delays of the measurement. The filter will use GPS and camera measurements for the estimation of the states of a Unmanned Aerial System. The GPS output will be delayed by a random number, which will produce the Out-Of-Sequence Measurement problem. The filter is based on calculating the states with the measurements at the moment, and then when the delayed measurements are available, the optimal filter for the time of the measurement is calculated and propagated until the present time.
+This extends the delayed Kalman filter to a delayed extended Kalman filter that takes into account the delays of the measurement. The filter uses GPS and camera measurements for the estimation of the states of an unmanned aerial system (UAS). The GPS output is delayed by a random number, which produces the out-of-sequence measurement problem. The filter is based on calculating the states with the measurements at the moment, so that when the delayed measurements are available, the optimal filter for the time of the measurement is calculated and propagated to the present time. The estimates provided by the filter are used to point an antenna and a camera towards the UAS.
 
 \end{abstract}
 

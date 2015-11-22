@@ -1,22 +1,48 @@
 \chapter{Sensors and Kalman Filters}{\label{ch:Sensors}}
-In this chapter we will explain the required elements for the antenna pointer system. The first requirement to track a UAV is some information about its position. This data will be provided by a GPS mounted in the aircraft and a camera mounted in the antenna pointer. These sensors are low cost and are very common in unmanned aircraft systems. The combination of these sensors is due to the characteristics of them. Since the GPS measurement errors are independent of the distance between the aircraft and the antenna pointer, it is relatively accurate at medium and long distances, but not at short range. On the contrary, the camera can estimate correctly the position of an object within short range, but at medium and long distances it can not detect the target since it will be just a few pixels in the image, therefore at long distances it is practically unusable. Furthermore, the GPS has an update frequency of 1 Hz to 4 Hz, while cameras can sample from 5 Hz to more than 20 Hz. In section \ref{sect:GPS} we will explain how GPS works and provide an algorithm to estimate the states of an UAV. Then in section \ref{sect:camera} we will present the camera model used for this simulation, and some coordinates frames that will be required to geolocate a target based on camera images. Also a simple algorithm for pointing the antenna towards the UAV will be presented.
+In this chapter we explain the required elements for the antenna pointer system. The first requirement to track a UAS is some information about its position. This data is provided by a GPS mounted in the aircraft and a camera mounted in the antenna pointer. These sensors are low cost and are very common in unmanned aircraft systems. The combination of these sensors is due to the characteristics of them. Since the GPS measurement errors are independent of the distance between the aircraft and the antenna pointer, it is relatively accurate at medium and long distances, but not at short range. By contrast, the camera can estimate correctly the position of an object within short range, but at medium and long distances it can not detect the target since it will be just a few pixels in the image, therefore at long distances it is practically unusable. Furthermore, the GPS has an update frequency of 1 Hz to 4 Hz, while cameras can sample from 5 Hz to more than 20 Hz. In section \ref{sect:GPS} we explain how GPS works and provide an algorithm to estimate the states of a UAS. Then in section \ref{sect:camera} we present the camera model used for this simulation, and some coordinates frames that we use to geolocate a target based on camera images. Also a simple algorithm for pointing the antenna towards the UAS is shown.
 
-The second requirement of our system is the ability to process the information received from both sensors, fuse the data and improve the estimation of the states of the UAV. For this purpose, a Kalman filter will be used. In section \ref{sect:kalman_filter} we will explain briefly the basic Kalman filter. Later on, the Extended Kalman filter will be presented. Different reasons could and will cause delays on the measurements. Therefore, an algorithm called Delayed Extended Kalman filter will be developed, one that takes in consideration the time lag on the measurements and compensates for it to produce a better estimation of the states.
+The second requirement of our system is the ability to process the information received from both sensors to fuse the data and improve the estimation of the states of the UAS. For this purpose, a Kalman filter will be used. In section \ref{sect:kalman_filter} we explain briefly the basic Kalman filter. Later on, the extended Kalman filter will be presented. Different reasons can cause delays on the measurements. Therefore, an algorithm called delayed extended Kalman filter will be developed, one that takes in consideration the time lag on the measurements and compensates for it to produce a better estimation of the states.
 
 \pagebreak
+\section{Aircraft Dynamics}
+12-state equations of motion
+\begin{align*}
+\dot{p_n}&=(\cos\theta\cos\psi)u+(\sin\phi\sin\theta\cos\psi-\cos\phi\sin\psi)v\\
+&\quad+(\cos\phi\sin\theta\cos\psi+\sin\phi\sin\psi)w \\
+\dot{p_e}&=(\cos\theta\sin\psi)u+(\sin\phi\sin\theta\sin\psi+\cos\phi\cos\psi)v\\
+&\quad+(\cos\phi\sin\theta\sin\psi-\sin\phi\cos\psi)w \\
+\dot{h}&=u\sin\theta-v\sin\phi\cos\theta-w\cos\phi\cos\theta\\
+\dot{u}&=rv-qw-g\sin\theta\\
+&\quad+\frac{\rho V_a^2S}{2m}[C_X(\alpha)+C_{X_q}(\alpha)\frac{cq}{2V_a}+C_{X_{\delta_e}}(\alpha)\delta_e]\\
+&\quad+\frac{\rho S_{prop}C_{prop}}{2m}[(k_{motor\delta_t})^2-V_a^2]\\
+\dot{v}&=pw-ru+g\cos\theta\sin\phi+\frac{\rho V_a^2S}{2m} \\
+&\quad\times[C_{Y_0}+C_{Y_\beta}\beta+C_{Y_p}\frac{bp}{2V_a}+C_{Y_r}\frac{br}{2V_a}+C_{Y_{\delta_a}}\delta_a+C_{Y_{\delta_r}}\delta_r]\\
+\dot{w}&=qu-pv+g\cos\theta\cos\phi\\
+&\quad+\frac{\rho V_a^2S}{2m}[C_Z(\alpha)+C_{Z_q}(\alpha)\frac{cq}{2V_a}+C_{Z_{\delta_e}}(\alpha)\delta_e]\\
+\dot{\phi}&=p+q\sin\phi\tan\theta+r\cos\phi\tan\theta \\
+\dot{\theta}&=q\cos\phi-r\sin\phi \\
+\dot{\psi}&=q\sin\phi\sec\theta+t\cos\phi\sec\theta\\
+\dot{p}&=\Gamma_1pq-\Gamma_2qr+\frac{1}{2}\rho V_a^2Sb \\
+&\times[C_{p_0}+C_{p_\beta}\beta+C_{p_p}\frac{bp}{2V_a}+C_{p_r}\frac{br}{2V_a}+C_{p_{\delta_a}}\delta_a+C_{p_{\delta_r}}\delta_r]\\
+\dot{q}&=\Gamma_5pr-\Gamma_6(p^2-r^2)+\frac{\rho V_a^2Sc}{2\mathcal{J}_y}\\
+&\quad\times[C_{m_0}+C_{m_\alpha}\alpha+C_{m_q}\frac{cq}{2V_a}+C_{m_{\delta_e}}\delta_e]\\
+\dot{r}&=\Gamma_7pq-\Gamma_1qr+\frac{1}{2}\rho V_a^2Sb\\
+&\quad\times[C_{r_0}+C_{r_\beta}\beta+C_{r_p}\frac{bp}{2V_a}+C_{r_r}\frac{br}{2V_a}+C_{r_{\delta_a}}\delta_a+C_{r_{\delta_r}}\delta_r]
+\end{align*}
 
+\pagebreak
 \section{Global Positioning System}{\label{sect:GPS}}
 
-The Global Positioning System (GPS) is a navigation system supported by satellites, that provides location information for objects on or near the surface of the earth. The NAVSTAR GPS has been functioning since 1993 and was developed by the United States Department of Defense. The GPS is one of the most important technologies that allows the functioning of UAS, giving them spatial localization. A more detailed description of the global navigation satellite systems can be found in many texts such as \cite{Zogg2009}, \cite{Parkinson1996}, \cite{Parkinson1996a}, \cite{Kaplan2005}, and \cite{Grewal2007}. In this section we will explain briefly how the sensing works in GPS systems and will show a GPS model appropriate for simulation.
+The global positioning system (GPS) is a navigation system supported by satellites that provides location information for objects on or near the surface of the earth. The navigation satellite timing and ranging (NAVSTAR) GPS has been functioning since 1993 and was developed by the United States Department of Defense. The GPS is one of the most important technologies that allows the functioning of UAS, giving them spatial localization. A more detailed description of the global navigation satellite systems can be found in many texts such as \cite{Zogg2009}, \cite{Parkinson1996}, \cite{Parkinson1996a}, \cite{Kaplan2005}, and \cite{Grewal2007}. In this section we explain briefly how the sensing works in GPS systems and we present a GPS model appropriate for simulation.
 
-The most important element in the GPS system is the 24 satellites that orbit continuously around the earth at an altitude of 20,180 km \cite{Zogg2009}. The constellation of the satellites orbits is configured so that any target on the surface of the earth can be observed by at least four satellites all the time. Is common knowledge that with one range measurement is it possible to locate a point in a line. With two range measurements a point on a plane and with three range measurements, a point on a 3-D surface. This explains the need for three of the four satellites. But the last one comes from clock synchronization errors between the satellites and the receiver. Therefore, with four independent pseudo-range measurements, there exists a system of four nonlinear equations which yield to the solution of the four variables of interest: latitude, longitude, altitude and receiver clock time offset \cite{Zogg2009}. This section is based on the work of \cite{Beard2010}.
+The most important element in the GPS system is the 24 satellites that orbit continuously around the earth at an altitude of 20,180 km \cite{Zogg2009}. The constellation of the satellites orbits is configured so that any location on the surface of the earth can be observed by at least four satellites all the time. It is common knowledge that with one range measurement is possible to locate a point in a line. With two range measurements a point on a plane and with three range measurements, a point on a 3-D surface. This explains the need for three of the four satellites. But the last one comes from clock synchronization errors between the satellites and the receiver. Therefore, with four independent pseudo-range measurements, there exists a system of four nonlinear equations which yield to the solution of the four variables of interest: latitude, longitude, altitude and receiver clock time offset \cite{Zogg2009}. This section is based on the work of \cite{Beard2010}.
 
 \subsection{GPS Measurement Error Model}{\label{sub:gps_meas_error}}
 The two factors that affect the precision of a GPS position measurement are the accuracy of the satellite pseudo-range measurements and the configuration of the satellites from which these pseudo-measurements are taken. The first factor is impacted by errors in the time of flight for each satellite. Where the second one is considered in a term called dilution of precision (DOP).
 \pagebreak
 \subsubsection{Standard Pseudo-Range Error Sources}
 \paragraph{Ephemeris Data} \hspace{0pt} \\
-The satellite ephemeris gives the position of the satellite in the sky at a given time. The position of the GPS receiver is calculated using measurement ranges with respect of satellites. To determine this position, we are required to know the locations of the satellites in the first place. Ephemeris errors in the measurements exists because of the inaccuracies in the transmitted orbital satellite location. Common errors vary from 1 to 5 m.
+The satellite ephemeris gives the position of the satellite in the sky at a given time. The position of the GPS receiver is calculated using measurement ranges with respect to satellites. To determine this position, we are required to know the locations of the satellites in the first place. Ephemeris errors in the measurements exists because of the inaccuracies in the transmitted orbital satellite location. Common errors vary from 1 to 5 m.
 
 \paragraph{Satellite Clock} \hspace{0pt} \\
 The atomic clocks used in GPS satellites are made of cesium and rubidium. These clocks can drift about 10 ns a day. This translates to an error of 3.5 m. But their clocks are synchronized twice a day, therefore leading to an approximately 1.75 m error.
@@ -25,10 +51,10 @@ The atomic clocks used in GPS satellites are made of cesium and rubidium. These 
 This is the topmost layer of the atmosphere of the earth and consists of a shell of electrons and electrically charged atoms and molecules that surround the earth. This particles can delay the transmission of GPS signals. Even though the GPS receivers compensate for this delay, variations in the speed of light along this atmosphere's layer, is the biggest cause of GPS measurement errors, which contributes to approximately 2 to 5 m.
 
 \paragraph{Troposphere} \hspace{0pt} \\
-The troposphere is the lowest portion of the atmosphere containing approximately 80 of the atmosphere's mass. and is located at an altitude of 7 to 20 km. Most of the weather phenomena occurs in this region. This produces variations in the speed of light and consequently in the time of flight and pseudo-range estimates. These variations introduces errors in the GPS measurements of about 1 m.
+The troposphere is the lowest portion of the atmosphere containing approximately 80\% of the atmosphere's mass and is located at an altitude of 7 to 20 km. Most of the weather phenomena occurs in this region. This produces variations in the speed of light and consequently in the time of flight and pseudo-range estimates. These variations introduces errors in the GPS measurements of about 1 m.
 
-\paragraph{Multi-path Reception} \hspace{0pt} \\
-Multi-path errors occur when reflected signals are received by the GPS receiver, mixing with the real signal. Big surfaces as large buildings or structures increases this error. Normally this error source contributes to 1 m of variation in the GPS measurement.
+\paragraph{Multipath Reception} \hspace{0pt} \\
+Multipath errors occur when reflected signals are received by the GPS receiver, mixing with the real signal. Big surfaces as large buildings or structures increases this error. Normally this error source contributes to 1 m of variation in the GPS measurement.
 
 
 \paragraph{Receiver Measurement} \hspace{0pt} \\
@@ -45,9 +71,9 @@ Where \begin{math} \nu[n] \end{math} is the error being modeled, \begin{math} \e
 \begin{align}
 y_{GPS,n}[n]&=p_n[n]+v_n[n]\\
 y_{GPS,e}[n]&=p_e[n]+v_e[n]\\
-y_{GPS,d}[n]&=p_d[n]+v_d[n]
+y_{GPS,d}[n]&=p_d[n]+v_d[n]\,,
 \end{align}
-Where \begin{math}p_n\end{math}, \begin{math}p_e\end{math}, and \begin{math} p_d\end{math} are the position coordinates in the local tangent plane or the North East Down coordinate system, and \begin{math} n \end{math} is the time step of the measurement. Usually the GPS receivers used by small UAV have a measurement frequency of 1 to 4 Hz.
+where \begin{math}p_n\end{math}, \begin{math}p_e\end{math}, and \begin{math} p_d\end{math} are the position coordinates in the local tangent plane or the North East Down coordinate system, and \begin{math} n \end{math} is the time step of the measurement. Usually the GPS receivers used by small UAV have a measurement frequency of 1 to 4 Hz.
 
 \subsubsection{GPS Velocity Measurements}
 Using the Doppler effect, which is the changes in frequency of a wave for an observer moving relative to its source, the speed of the GPS receiver can be estimated. This approximation has a standard deviation of 0.01 to 0.05 m/s. Modern GPS receivers usually provide more than just the position and also include the velocity of the receiver, horizontal ground speed and course angle \cite{Beard2010}.

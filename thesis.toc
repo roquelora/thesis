@@ -8,42 +8,43 @@
 \contentsline {section}{\numberline {1.2}Contributions}{2}
 \contentsline {section}{\numberline {1.3}Literature Review}{4}
 \contentsline {chapter}{\numberline {2}Sensors and Kalman Filters}{6}
-\contentsline {section}{\numberline {2.1}Global Positioning System}{7}
-\contentsline {subsection}{\numberline {2.1.1}GPS Measurement Error Model}{7}
-\contentsline {subsubsection}{Standard Pseudo-Range Error Sources}{8}
-\contentsline {paragraph}{Ephemeris Data}{8}
-\contentsline {paragraph}{Satellite Clock}{8}
-\contentsline {paragraph}{Ionosphere}{8}
-\contentsline {paragraph}{Troposphere}{8}
-\contentsline {paragraph}{Multi-path Reception}{8}
-\contentsline {paragraph}{Receiver Measurement}{9}
-\contentsline {subsubsection}{Transient Characteristic of GPS Positioning Error}{9}
-\contentsline {subsubsection}{GPS Velocity Measurements}{10}
-\contentsline {subsection}{\numberline {2.1.2}GPS Smoothing}{11}
-\contentsline {section}{\numberline {2.2}Camera}{16}
-\contentsline {subsection}{\numberline {2.2.1}Gimbal and Camera Frames and Projective Geometry}{16}
-\contentsline {subsection}{\numberline {2.2.2}Camera Model}{17}
-\contentsline {subsection}{\numberline {2.2.3}Gimbal Pointing}{19}
-\contentsline {subsection}{\numberline {2.2.4}Geolocation}{21}
-\contentsline {subsubsection}{Range to Target Using the Flat-Earth Model}{21}
-\contentsline {subsubsection}{Geolocation Using an Extended Kalman Filter}{22}
-\contentsline {section}{\numberline {2.3}Kalman Filter}{24}
-\contentsline {subsection}{\numberline {2.3.1}Discrete Kalman Filter}{25}
-\contentsline {subsubsection}{Time Update Equations}{26}
-\contentsline {subsubsection}{Measurement Update Equations}{27}
-\contentsline {subsection}{\numberline {2.3.2}Extended Kalman Filter}{29}
-\contentsline {subsection}{\numberline {2.3.3}Delayed Extended Kalman Filter}{30}
-\contentsline {chapter}{\numberline {3}Simulation}{33}
-\contentsline {section}{\numberline {3.1}Simulation Overview}{33}
-\contentsline {section}{\numberline {3.2}Antenna Pointer}{34}
-\contentsline {subsection}{\numberline {3.2.1}GPS}{34}
-\contentsline {subsection}{\numberline {3.2.2}Camera}{35}
-\contentsline {subsection}{\numberline {3.2.3}EKF/DEKF}{35}
-\contentsline {subsection}{\numberline {3.2.4}Pointer}{35}
-\contentsline {section}{\numberline {3.3}3-D Plot}{36}
-\contentsline {chapter}{\numberline {4}Results}{37}
-\contentsline {section}{\numberline {4.1}Comparison of Estimations Between GPS and GPS Coupled with Camera}{38}
-\contentsline {section}{\numberline {4.2}Comparison of Estimation Accuracy for EKF and DEKF with 0.75 s Random Delay}{41}
-\contentsline {section}{\numberline {4.3}Comparison of Estimation Accuracy Between No delay, 0.25 s, 0.50 s, and 0.75 s Random Delays}{44}
-\contentsline {chapter}{\numberline {5}Conclusion}{47}
-\contentsline {chapter}{References}{49}
+\contentsline {section}{\numberline {2.1}Aircraft Dynamics}{7}
+\contentsline {section}{\numberline {2.2}Global Positioning System}{8}
+\contentsline {subsection}{\numberline {2.2.1}GPS Measurement Error Model}{8}
+\contentsline {subsubsection}{Standard Pseudo-Range Error Sources}{9}
+\contentsline {paragraph}{Ephemeris Data}{9}
+\contentsline {paragraph}{Satellite Clock}{9}
+\contentsline {paragraph}{Ionosphere}{9}
+\contentsline {paragraph}{Troposphere}{9}
+\contentsline {paragraph}{Multipath Reception}{9}
+\contentsline {paragraph}{Receiver Measurement}{10}
+\contentsline {subsubsection}{Transient Characteristic of GPS Positioning Error}{10}
+\contentsline {subsubsection}{GPS Velocity Measurements}{11}
+\contentsline {subsection}{\numberline {2.2.2}GPS Smoothing}{12}
+\contentsline {section}{\numberline {2.3}Camera}{17}
+\contentsline {subsection}{\numberline {2.3.1}Gimbal and Camera Frames and Projective Geometry}{17}
+\contentsline {subsection}{\numberline {2.3.2}Camera Model}{18}
+\contentsline {subsection}{\numberline {2.3.3}Gimbal Pointing}{20}
+\contentsline {subsection}{\numberline {2.3.4}Geolocation}{22}
+\contentsline {subsubsection}{Range to Target Using the Flat-Earth Model}{22}
+\contentsline {subsubsection}{Geolocation Using an Extended Kalman Filter}{23}
+\contentsline {section}{\numberline {2.4}Kalman Filter}{25}
+\contentsline {subsection}{\numberline {2.4.1}Discrete Kalman Filter}{26}
+\contentsline {subsubsection}{Time Update Equations}{27}
+\contentsline {subsubsection}{Measurement Update Equations}{28}
+\contentsline {subsection}{\numberline {2.4.2}Extended Kalman Filter}{30}
+\contentsline {subsection}{\numberline {2.4.3}Delayed Extended Kalman Filter}{31}
+\contentsline {chapter}{\numberline {3}Simulation}{34}
+\contentsline {section}{\numberline {3.1}Simulation Overview}{34}
+\contentsline {section}{\numberline {3.2}Antenna Pointer}{35}
+\contentsline {subsection}{\numberline {3.2.1}GPS}{35}
+\contentsline {subsection}{\numberline {3.2.2}Camera}{36}
+\contentsline {subsection}{\numberline {3.2.3}EKF/DEKF}{36}
+\contentsline {subsection}{\numberline {3.2.4}Pointer}{36}
+\contentsline {section}{\numberline {3.3}3-D Plot}{37}
+\contentsline {chapter}{\numberline {4}Results}{38}
+\contentsline {section}{\numberline {4.1}Comparison of Estimations Between GPS and GPS Coupled with Camera}{39}
+\contentsline {section}{\numberline {4.2}Comparison of Estimation Accuracy for EKF and DEKF with 0.75 s Random Delay}{42}
+\contentsline {section}{\numberline {4.3}Comparison of Estimation Accuracy Between No delay, 0.25 s, 0.50 s, and 0.75 s Random Delays}{45}
+\contentsline {chapter}{\numberline {5}Conclusion}{48}
+\contentsline {chapter}{References}{50}
