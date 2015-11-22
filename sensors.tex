@@ -1,7 +1,7 @@
 \chapter{Sensors and Kalman Filters}{\label{ch:Sensors}}
-In this chapter we explain the required elements for the antenna pointer system. The first requirement to track a UAS is some information about its position. This data is provided by a GPS mounted in the aircraft and a camera mounted in the antenna pointer. These sensors are low cost and are very common in unmanned aircraft systems. The combination of these sensors is due to the characteristics of them. Since the GPS measurement errors are independent of the distance between the aircraft and the antenna pointer, it is relatively accurate at medium and long distances, but not at short range. By contrast, the camera can estimate correctly the position of an object within short range, but at medium and long distances it can not detect the target since it will be just a few pixels in the image, therefore at long distances it is practically unusable. Furthermore, the GPS has an update frequency of 1 Hz to 4 Hz, while cameras can sample from 5 Hz to more than 20 Hz. In section \ref{sect:GPS} we explain how GPS works and provide an algorithm to estimate the states of a UAS. Then in section \ref{sect:camera} we present the camera model used for this simulation, and some coordinates frames that we use to geolocate a target based on camera images. Also a simple algorithm for pointing the antenna towards the UAS is shown.
+In this chapter we explain the required elements for the antenna pointer system. The first requirement to track a UAS is some information about its position. This data is provided by a GPS mounted in the aircraft and a camera mounted in the antenna pointer. These sensors are low cost and are very common in unmanned aircraft systems. The combination of these sensors is due to the characteristics of them. Since the GPS measurement errors are independent of the distance between the aircraft and the antenna pointer, it is relatively accurate at medium and long distances, but not at short range. By contrast, the camera can estimate correctly the position of an object within short range, but at medium and long distances it can not detect the target since it is just a few pixels in the image, therefore at long distances it is practically unusable. Furthermore, the GPS has an update frequency of 1 Hz to 4 Hz, while cameras can sample from 5 Hz to more than 20 Hz. In section \ref{sect:GPS} we explain how GPS works and provide an algorithm to estimate the states of a UAS. Then in section \ref{sect:camera} we present the camera model used for this simulation, and some coordinates frames that we use to geolocate a target based on camera images. Also a simple algorithm for pointing the antenna towards the UAS is shown.
 
-The second requirement of our system is the ability to process the information received from both sensors to fuse the data and improve the estimation of the states of the UAS. For this purpose, a Kalman filter will be used. In section \ref{sect:kalman_filter} we explain briefly the basic Kalman filter. Later on, the extended Kalman filter will be presented. Different reasons can cause delays on the measurements. Therefore, an algorithm called delayed extended Kalman filter will be developed, one that takes in consideration the time lag on the measurements and compensates for it to produce a better estimation of the states.
+The second requirement of our system is the ability to process the information received from both sensors to fuse the data and improve the estimation of the states of the UAS. For this purpose, a Kalman filter is used. In section \ref{sect:kalman_filter} we explain briefly the basic Kalman filter. Later on, the extended Kalman filter is presented. Different reasons can cause delays on the measurements. Therefore, an algorithm called delayed extended Kalman filter is explained, which takes in consideration the time lag on the measurements and compensates for it to produce a better estimation of the states.
 
 \pagebreak
 \section{Aircraft Dynamics}
@@ -89,28 +89,27 @@ Using uncertainty analysis as in \cite{Figliola2006}, the uncertainty in ground 
 \sigma_{V_g}&=\sqrt{\frac{V_n^2\sigma_{V_n}^2+V_e^2\sigma_{V_e}^2}{V_n^2+V_e^2}} \\
 \sigma_\chi&=\sqrt{\frac{V_n^2\sigma_{V_e}^2+V_e^2\sigma_{V_n}^2}{(V_n^2+V_e^2)^2}}\,.
 \end{align*}
-
 If the uncertainty in the north and east axis have the same magnitude (i.e., $\sigma_{V_n}=\sigma_{V_e}=\sigma_V$), these formulas simplify as
 \begin{align}
 \sigma_{V_g}&=\sigma_V \label{sigma_Vg}\\
 \sigma_\chi&=\frac{\sigma_V}{V_g}\,. \label{eq:sigma_chi}
 \end{align}
 
-In these expressions we can observe that the uncertainty in the course measurements increases with the inverse of the ground speed with high speeds yielding small errors and low velocity creating big errors. The reason for this behavior is because the course angle is only defined for moving objects. We can model the ground speed and course angle measurements of the GPS receiver parting form the equations \ref{eq:Vg}-\ref{eq:chi} and \ref{sigma_Vg}-\ref{eq:sigma_chi}
-
+In these expressions we can observe that the uncertainty in the course measurements increases with the inverse of the ground speed with high speeds yielding small errors and low velocity creating big errors. The reason for this behavior is because the course angle is only defined for moving objects. The ground speed and the course angle measurements of the GPS receiver can be modeled parting from (\ref{eq:Vg})-(\ref{eq:chi}) and (\ref{sigma_Vg})-(\ref{eq:sigma_chi})
 \begin{align}
 y_{GPS,V_g}&=\sqrt{(V_a\cos\psi+w_n)^2+(V_a\sin\psi+w_e)^2}+\eta_V \\
-y_{GPS,\chi}&=atan2(V_a\sin\psi+w_e,V_a\cos\psi+w_n)+\eta_\chi\,,
+y_{GPS,\chi}&=\arctan^2(V_a\sin\psi+w_e,V_a\cos\psi+w_n)+\eta_\chi\,,
 \end{align}
 where $\eta_V$ and $\eta_\chi$ are zero-mean Gaussian processes with variances $\sigma_{V_g}^2$ and $\sigma_\chi^2\,$.
 
 \subsection{GPS Smoothing}
-In this section we will present an algorithm that estimates the position, ground speed, course, wind speed and heading of a fixed wing aircraft. Assuming that the flight path angle $\gamma=0$, the position can be expressed as
+In this section we present an algorithm that estimates the position, ground speed, course, wind speed and heading of a fixed wing aircraft. Assuming that the flight path angle ($\gamma$) is zero, the position can be expressed as
 \begin{align*}
 p_n&=V_g\cos\chi \\
-p_e&=V_g\sin\chi.
+p_e&=V_g\sin\chi
 \end{align*}
-To get the variation of the ground speed we must differentiate equation \ref{eq:Vg} getting
+where $\chi$ is the course angle of the UAS.
+To get the variation of the ground speed we must differentiate (\ref{eq:Vg}) getting
 \begin{align*}
 \dot{V}_g &= \frac{d}{dt}\sqrt{(V_a\cos\psi+w_n)^2+(V_a\sin\psi+w_e)^2} \\
 		  &= \frac{1}{V_g}[(V_a\cos\psi+w_n)(\dot{V}_a\cos\psi-V_a\dot{\psi}\sin\psi+\dot{w}_n)\\
@@ -167,9 +166,9 @@ where
 \frac{\partial\dot{\chi}}{\partial\chi} &= -\frac{g}{V_g}\tan\phi\sin(\chi-\psi) \\
 \frac{\partial\chi}{\partial\psi} &= \frac{g}{V_g}\tan\phi\sin(\chi-\psi)\,.
 \end{align*}
-The input $u$ will be composed of the north position, east position, ground speed, and course supplied by the GPS receiver. 
+The input $u$ is composed by the north position, east position, ground speed, and course supplied by the GPS receiver. 
 
-For measurements, we will use the GPS signals for north and east position, ground speed and course. Due to the coupling of the states, we will require the triangle relationship given by
+For measurements, we use the GPS signals for north and east position, ground speed and course. Due to the coupling of the states, we require the triangle relationship given by
 \begin{align*}
 V_g \begin{pmatrix}
 \cos\psi\cos\gamma \\
@@ -228,13 +227,21 @@ And the Jacobian, obtained by taking partial derivatives of the measurement mode
 \end{pmatrix}\,.
 \end{align}
 The estimation of $p_n,p_e,V_g,\chi,w_n,w_e$ and $\psi$, are going to be calculated using two algorithms called the extended Kalman filter (EKF) and the 
-Delayed Extended Kalman Filter (DEKF), which are going to be explained in section \ref{sect:kalman_filter}.
+delayed extended Kalman filter (DEKF), which are going to be explained in section \ref{sect:kalman_filter}.
 
 \pagebreak
 \section{Camera}{\label{sect:camera}}
-This section introduces state estimation using camera data and the control of a gimbal. First, we will address the coordinate frame geometry and describe the gimbal and camera frames. Then, the projection of a 3-D object into the 2-D image plane is presented. We will also present a simple gimbal pointing algorithm which will be implemented in a pan-tilt gimbal to point an antenna towards the UAV. Moreover, we will discuss a geolocation algorithm used to estimate the position of an aircraft within its field of view. This study assumes that an image recognition algorithm exists which will detect the UAS in the image data. This section is based on the work of \cite{Beard2010}.
+This section introduces state estimation using camera data and the control of a gimbal. First, we address the coordinate frame geometry and describe the gimbal and camera frames. Then, the projection of a 3-D object into the 2-D image plane is presented. We also present a simple gimbal pointing algorithm which is implemented in a pan-tilt gimbal to point an antenna towards the UAS. Moreover, we discuss a geolocation algorithm used to estimate the position of an aircraft within its field of view. This study assumes that an image recognition algorithm exists which detects the UAS in the image data. This section is based on the work of \cite{Beard2010}.
 \subsection{Gimbal and Camera Frames and Projective Geometry}{\label{sub:gimbal_camera_frames}}
-Assuming that the center of mass of the Antenna Pointer is the origin of the gimbal and camera frames, there will be three frames of interest: the gimbal-1 frame denoted by  $\mathcal{F}^{g1}=(\boldsymbol{i}^{g1},\boldsymbol{j}^{g1},\boldsymbol{k}^{g1})$, the gimbal frame denoted by \linebreak $\mathcal{F}^g=(\boldsymbol{i}^g,\boldsymbol{j}^g,\boldsymbol{k}^g)$, and the camera frame denoted by $\mathcal{F}^c=(\boldsymbol{i}^c,\boldsymbol{j}^c,\boldsymbol{k}^c)$. If the body frame is rotated an angle of $\alpha_{az}$, the azimuth angle, about the $\boldsymbol{k}^b$ axis, the resulting frame is the gimbal-1 frame. The rotation matrix of this coordinate frame transformation is given by
+Assuming that the center of mass of the antenna pointer is the origin of the gimbal and camera frames, there are three frames of interest. The camera frame denoted by
+\begin{align*}
+\mathcal{F}^c=(\boldsymbol{i}^c,\boldsymbol{j}^c,\boldsymbol{k}^c)\,.
+\end{align*}
+The second frame of interest is obtained by rotating the body frame an angle of $\alpha_{az}$, the azimuth angle, about the $\boldsymbol{k}^b$ axis, resulting in the gimbal-1 frame. This frame is denoted by
+\begin{align*}
+\mathcal{F}^{g1}=(\boldsymbol{i}^{g1},\boldsymbol{j}^{g1},\boldsymbol{k}^{g1})\,.
+\end{align*}
+The rotation matrix of this coordinate frame transformation is given by
 \begin{align}{\label{R_b_g1}}
 \mathcal{R}_b^{g1}(\alpha_{az})\triangleq
 \begin{pmatrix}
@@ -243,7 +250,7 @@ Assuming that the center of mass of the Antenna Pointer is the origin of the gim
 0				 & 0			   & 1
 \end{pmatrix}\,.
 \end{align}
-Rotating the gimbal-1 frame an angle of $\alpha_{el}$, the elevation angle, in the $\boldsymbol{j}^{g1}$ axis, produces the gimbal-frame. This transformation is described by
+Finally, if the gimbal-1 frame is rotated an angle of $\alpha_{el}$, the elevation angle, in the $\boldsymbol{j}^{g1}$ axis, the third frame of interest is obtained, which is the gimbal frame. This transformation is described by
 \begin{align}{\label{R_g1_g}}
 \mathcal{R}^g_{g1}(\alpha_{el})\triangleq
 \begin{pmatrix}
@@ -277,7 +284,7 @@ Lets assume that the pixels and the pixel array are square. Defining $M$ as the 
 \begin{align}
 f=\frac{M}{2\tan\frac{v}{2}}\,.
 \end{align}
-The position of the UAV projected into the camera frame is given by $(P_{\epsilon_x},P_{\epsilon_y},P_f)$, where $\epsilon_x$ and $\epsilon_y$ are the pixel location of the aircraft in units of pixels. The distance between the origin of the camera frame and the location of the plane $(\epsilon_x,\epsilon_y)$, is $PF$ where
+The position of the UAS projected into the camera frame is given by $(P_{\epsilon_x},P_{\epsilon_y},P_f)$, where $\epsilon_x$ and $\epsilon_y$ are the pixel location of the aircraft in units of pixels. The distance between the origin of the camera frame and the location of the plane $(\epsilon_x,\epsilon_y)$, is $PF$ where
 \begin{align}
 F=\sqrt{f^2+\epsilon_x^2+\epsilon_y^2}\,.
 \end{align}
@@ -288,7 +295,7 @@ Using basic trigonometry we get
 \frac{l_y^c}{\mathbb{L}}&=\frac{\epsilon_y}{F}{\label{eq:l_y^c}} \\
 \frac{l_f^c}{\mathbb{L}}&=\frac{f}{F}{\label{eq:l_z^c}}\,.
 \end{align}
-Defining $\boldsymbol{l}^c$ as the vector to the UAS and $\mathbb{L}=\lvert\lvert \boldsymbol{l}\rvert\rvert$ we can express the equations \ref{eq:l_x^c} through \ref{eq:l_z^c} as
+Defining $\boldsymbol{l}^c$ as the vector to the UAS and $\mathbb{L}=\lvert\lvert \boldsymbol{l}\rvert\rvert$ we can express (\ref{eq:l_x^c}) through (\ref{eq:l_z^c}) as
 \begin{align}
 \boldsymbol{l}^c=\frac{\mathbb{L}}{F}
 \begin{pmatrix}
@@ -313,7 +320,7 @@ f
 \end{pmatrix}\,.
 \end{align}
 
-Since this unit vector will be used multiple times throughout this section, we will use the notation
+Since this unit vector is used multiple times throughout this section, we use the notation
 \begin{align*}
 \check{\boldsymbol{l}}\triangleq
 \begin{pmatrix}
@@ -321,11 +328,11 @@ Since this unit vector will be used multiple times throughout this section, we w
 \check{l}_y \\
 \check{l}_z
 \end{pmatrix} \triangleq
-\frac{\boldsymbol{l}}{\mathbb{L}}\,.
+\frac{\boldsymbol{l}^c}{\mathbb{L}}\,.
 \end{align*}
 \pagebreak
 \subsection{Gimbal Pointing}{\label{sub:gimbal_pointing}}
-In this section we will present a basic gimbal-pointing algorithm, which will be used by our antenna pointer. The tracking system is assumed to pan and tilt with the respective angles azimuth and elevation. The dynamic model of the gimbal is given by
+In this section we present a basic gimbal-pointing algorithm, which is used by our antenna pointer. The tracking system is assumed to pan and tilt with the respective angles azimuth and elevation. The dynamic model of the gimbal is given by
 \begin{align*}
 \dot{\alpha}_{az}&=u_{az} \\
 \dot{\alpha}_{el}&=u_{el}\,.
@@ -338,8 +345,8 @@ where $\boldsymbol{p}_{AP}^i = (p_n,p_e,p_d)^\top$ is the inertial position of t
 \begin{align*}
 \check{\boldsymbol{l}}_d^b=\frac{1}{\lvert\lvert \boldsymbol{l}_d^i\rvert\rvert}\mathcal{R}_i^bl_d^i\,.
 \end{align*}
-Furthermore, we need to calculate the desired azimuth and elevation angles so that the UAV is located in the origin of the image plane,this is, to align the optical axis with $\check{\boldsymbol{l}_d^b}$.
-The next step is to determine the desired azimuth and elevation angles that will align the optical axis with $\check{\boldsymbol{l}_d^b}$. Since the optical axis is given by $(0,0,1)^c$ in the camera frame, the commanded gimbal angles $\alpha_{az}^c$ and $\alpha_{el}^c$ will be
+Furthermore, we need to calculate the desired azimuth and elevation angles so that the UAS is located in the origin of the image plane, this is, to align the optical axis with $\check{\boldsymbol{l}_d^b}$.
+The next step is to determine the desired azimuth and elevation angles that aligns the optical axis with $\check{\boldsymbol{l}_d^b}$. Since the optical axis is given by $(0,0,1)^c$, the $c$ denoting that is in the camera frame, the commanded gimbal angles $\alpha_{az}^c$ and $\alpha_{el}^c$ are
 \begin{align}
 \check{\boldsymbol{l}}_d^b&\triangleq
 \begin{pmatrix}
@@ -381,7 +388,7 @@ Therefore the desired azimuth and elevation angles are
 \alpha_{az}^c&=\tan^{-1}\left(\frac{\check{l}_{yd}^b}{\check{l}_{xd}^b}\right) \\
 \alpha_{el}^c&=\sin^{-1}\left(\check{l}_{zd}^b\right)\,.
 \end{align}
-Then, choosing the gimbal servo commands we will have 
+Then, choosing the gimbal servo commands we have 
 \begin{align}{\label{eq:servo_commands}}
 u_{az}&=k_{az}(\alpha_{az}^c-\alpha_{az}) \\
 u_{el}&=k_{el}(\alpha_{el}^c-\alpha_{el})\,,
@@ -390,13 +397,13 @@ where $k_{az}$ and $k_{el}$ are positive control gains.
 
 \pagebreak
 \subsection{Geolocation}{\label{geolocation}}
-The objective of this section is to describe an algorithm that can determine the position of an aircraft in inertial coordinates using a EO/IR camera mounted in the antenna pointer. For this study we will assume that the antenna pointer can measure its own position.
+The objective of this section is to describe an algorithm that can determine the position of an aircraft in inertial coordinates using a EO/IR camera mounted in the antenna pointer. For this study we assume that the antenna pointer can measure its own position.
 Continuing the discussion of section \ref{sub:gimbal_camera_frames}, lets define $\boldsymbol{l}=\boldsymbol{p}_{UAV}-\boldsymbol{p}_{AP}$ as the relative position vector between the aircraft and the antenna pointer, $\mathbb{L}=\lvert\lvert \boldsymbol{l}\rvert\rvert$ as the range to the aircraft, and $\check{\boldsymbol{l}}=\boldsymbol{l}/\mathbb{L}$ as the unit vector that points towards the UAV. Using simple geometry, we have that
 \begin{align}{\label{eq:p_uav}}
 \boldsymbol{p}_{_{UAV}}^i&=\boldsymbol{p}_{AP}^i+\mathcal{R}_b^i\mathcal{R}_g^b\mathcal{R}_g^c\boldsymbol{l}^c\nonumber \\
 &= \boldsymbol{p}_{AP}^i+\mathbb{L}(\mathcal{R}_b^i\mathcal{R}_g^b\mathcal{R}_g^c\check{\boldsymbol{l}}^c)\,,
 \end{align}
-where $\boldsymbol{p}_{AP}^i=(p_n,p_e,p_d)^\top$, $\mathcal{R}_b^i=\mathcal{R}_b^i(\phi,\theta,\psi)$, and $\mathcal{R}_g^b=\mathcal{R}_g^b(\alpha_{az},\alpha_{el})$. Note that all the elements on the right-hand side of the equation \ref{eq:p_uav} are known, except $\mathbb{L}$. Hence, the geolocation of a target is simply as estimating the range to the target $\mathbb{L}$.
+where $\boldsymbol{p}_{AP}^i=(p_n,p_e,p_d)^\top$, $\mathcal{R}_b^i=\mathcal{R}_b^i(\phi,\theta,\psi)$, and $\mathcal{R}_g^b=\mathcal{R}_g^b(\alpha_{az},\alpha_{el})$. Note that all the elements on the right-hand side of (\ref{eq:p_uav}) are known, except $\mathbb{L}$. Hence, the geolocation of a target is simply as estimating the range to the target $\mathbb{L}$.
 
 \subsubsection{Range to Target Using the Flat-Earth Model}
 Since we assumed that the antenna pointer can determine its position, we have available the height-above-ground of the pointer. Also since UAS missions are are not usually long range we can neglect the curvature of the earth, and assume a flat-earth model. Then using simple trigonometry we have that
@@ -412,7 +419,7 @@ Subsequently, the estimation of the range to the target is given by
 \begin{align}{\label{eq:range_estimate}}
 \mathbb{L}=\frac{h}{\boldsymbol{k}^i\cdot\mathcal{R}_b^i\mathcal{R}_g^b\mathcal{R}_c^g\check{\boldsymbol{l}}^c}\,.
 \end{align}
-And finally combining equations \ref{eq:p_uav} and \ref{eq:range_estimate} the geolocation estimate can be expressed as
+And finally combining (\ref{eq:p_uav}) and (\ref{eq:range_estimate}) the geolocation estimate can be expressed as
 \begin{align}{\label{eq:geolocation_estimate}}
 \boldsymbol{p}_{_{UAV}}^i=
 \begin{pmatrix}
@@ -424,7 +431,7 @@ p_d
 \end{align}
 %checked until here
 \subsubsection{Geolocation Using an Extended Kalman Filter}{\label{sub:geolocatoin_with_EKF}}
-Since the geolocation estimation made by equation \ref{eq:geolocation_estimate} provides an approximation of the location of the UAV, and does not take into account the past measurements, it is prone to errors. Therefore, in this section we will present a method to solve the geolocation problem iteratively, the Extended Kalman filter(EKF). This algorithm and its derivation will be explained in section \ref{sect:kalman_filter}.
+Since the geolocation estimation made by (\ref{eq:geolocation_estimate}) provides an approximation of the location of the UAS, and does not take into account the past measurements, it is prone to errors. Therefore, in this section we present a method to solve the geolocation problem iteratively, the extended Kalman filter(EKF). This algorithm and its derivation are explained in section \ref{sect:kalman_filter}.
 
 If we assume that the antenna pointer is stationary, we have
 \begin{align*}
@@ -445,7 +452,7 @@ If a constant-altitude flight is assumed, we can approximate  $\dot{\boldsymbol{
 0
 \end{pmatrix}\,,
 \end{align*}
-and where $\hat{V}_g$ and $\hat{\chi}$ are calculated using the EKF and the DEKF discussed in the next section. The input to the geolocation algorithm is the position of the antenna pointer in the inertial frame and the estimate of the normalized line-of-sight vector as given in \ref{eq:norm_line_of_sight_vector}.
+and where $\hat{V}_g$ and $\hat{\chi}$ are calculated using the EKF and the DEKF discussed in the next section. The input to the geolocation algorithm is the position of the antenna pointer in the inertial frame and the estimate of the normalized line-of-sight vector as given in (\ref{eq:norm_line_of_sight_vector}).
 
 To implement the geolocation problem with an Extended Kalman filter, we define the state as $\hat{x}=(\hat{\boldsymbol{p}}_{_{UAV}}^{i^\top},\hat{\mathbb{L}})^\top$ and prediction equations given by
 \begin{align*}
@@ -467,7 +474,7 @@ Taking partial derivatives of $f$ with respect to $x$, we have the Jacobian whic
 \frac{\dot{\boldsymbol{p}}_{_{UAV}}^i}{\hat{\mathbb{L}}} & -\frac{(\boldsymbol{p}_{_{UAV}}^i-\boldsymbol{p}_{AP}^i)^\top\dot{\boldsymbol{p}}_{_{UAV}}^i}{\hat{\mathbb{L}}^2}
 \end{pmatrix}\,.
 \end{align*}
-The output equation is given by equation \ref{eq:p_uav}, and its Jacobian is given by
+The output equation is given by (\ref{eq:p_uav}), and its Jacobian is given by
 \begin{align*}
 \frac{\partial h}{\partial x}=
 \begin{pmatrix}
@@ -478,11 +485,11 @@ The output equation is given by equation \ref{eq:p_uav}, and its Jacobian is giv
 \pagebreak
 \section{Kalman Filter}{\label{sect:kalman_filter}}
 
-A Kalman Filter is an optimal recursive data processing algorithm. One of the aspect of this optimality is that the Kalman Filter incorporates all the information that can be provided to it. It processes all available measurements, regardless of their precision, to estimate the current value of the variables of interest, with use of knowledge of the system and measurement device dynamics, the statistical description of the system noises, measurement errors and uncertainty in the dynamics models, and any available information about initial conditions of the variables of interest. One of the interesting characteristic of the Kalman Filter is that it does not require all previous data to be kept in memory and reprocessed every time a new measurement is taken, making the filter implementation more practical. The filter is actually a data processing algorithm, and therefore it incorporates discrete-time measurement samples rather than continuous time inputs. Often the variables of interest, some finite number of quantities to describe the state of the system, cannot be measured directly, and some means of inferring these values from the available data must be generated, thus the need of the filter. This inference is complicated by the facts that the system is typically driven by inputs other than our own known controls and that the relationships among the various state variables and measured outputs are known only with some degree of uncertainty. Furthermore, any measurement will be corrupted to some degree by noise, biases, and device inaccuracies, and so a means of extracting valuable information from a noisy signal must be provided as well. There may also be a number of different measuring devices, each with its own particular dynamics and error characteristics, that provide some information about a particular variable, and it would be desirable to combine their outputs in a systematic and optimal manner. A Kalman Filter combines all available measurement data, plus prior knowledge about the system and measuring devices, to produce an estimate of the desired variables in such a manner that the error is minimized statistically. In other words, if we were to run a number of candidate filters many times for some application, then the average results of the Kalman Filter would be better than the average results of any other. \cite{Maybeck1979}
+A Kalman filter is an optimal recursive data processing algorithm. One of the aspect of this optimality is that the Kalman filter incorporates all the information that can be provided to it. It processes all available measurements, regardless of their precision, to estimate the current value of the variables of interest, with use of knowledge of the system and measurement device dynamics, the statistical description of the system noises, measurement errors and uncertainty in the dynamics models, and any available information about initial conditions of the variables of interest. One of the interesting characteristics of the Kalman filter is that it does not require all previous data to be kept in memory and reprocessed every time a new measurement is taken, making the filter implementation more practical. The filter is actually a data processing algorithm, and therefore it incorporates discrete-time measurement samples rather than continuous time inputs. Often the variables of interest, some finite number of quantities to describe the state of the system, cannot be measured directly, and some means of inferring these values from the available data must be generated, thus the need of the filter. This inference is complicated by the facts that the system is typically driven by inputs other than our own known controls and that the relationships among the various state variables and measured outputs are known only with some degree of uncertainty. Furthermore, any measurement is corrupted to some degree by noise, biases, and device inaccuracies, and so a means of extracting valuable information from a noisy signal must be provided as well. There may also be a number of different measuring devices, each with its own particular dynamics and error characteristics, that provide some information about a particular variable, and it would be desirable to combine their outputs in a systematic and optimal manner. A Kalman filter combines all available measurement data, plus prior knowledge about the system and measuring devices, to produce an estimate of the desired variables in such a manner that the error is minimized statistically. In other words, if we were to run a number of candidate filters many times for some application, then the average results of the Kalman filter would be better than the average results of any other \cite{Maybeck1979}.
 
 \subsection{Discrete Kalman Filter}
 
-This section is based on the work of \cite{Beard2010}. There are several different forms of the Kalman Filter but the form particularly useful for Small UAS applications is the continuous-propagation, discrete-measurement Kalman Filter.
+This section is based on the work of \cite{Beard2010}. There are several different forms of the Kalman filter but the form particularly useful for Small UAS applications is the continuous-propagation, discrete-measurement Kalman filter.
 Lets assume that the linear system dynamics are given by
 \begin{equation}\label{eq:linear_model}
 \begin{aligned}
@@ -491,7 +498,7 @@ y[n]=Cx[n]+\eta[n]\,,
 \end{aligned}
 \end{equation}
 where \begin{math} y[n] = y(t_n) \end{math} is the \begin{math} n^{th} \end{math} sample of \begin{math} y \end{math}, \begin{math} x[n] = x(t_n) \end{math} is the \begin{math} n^{th} \end{math} sample of \begin{math} x \end{math}, \begin{math} \eta \end{math} is the measurement noise at time \begin{math} t_n\end{math}, \begin{math} \xi \end{math} is a zero-mean Gaussian random process with covariance \begin{math} Q \end{math}, and \begin{math} \eta[n] \end{math} is a zero-mean Gaussian random variable with covariance \begin{math} R \end{math}. The random process \begin{math} \xi \end{math} is called the process noise and represents modeling error and disturbances on the system. The random variable \begin{math} \eta \end{math} is called the measurement noise and represents noise on the sensors. The covariance \begin{math} R \end{math} can usually be estimated from sensor calibration, but the covariance \begin{math} Q \end{math} is generally unknown and therefore becomes a system parameter that can be tuned to improve the performance of the observer. Note that the sample rate does not need to be fixed. \linebreak
-The continuous-discrete Kalman Filter has the form
+The continuous-discrete Kalman filter has the form
 \begin{align}
 \dot{\hat{x}}&=A\hat{x}+Bu \\
 \hat{x}^+&=\hat{x}^-+L(y(t_n)-C\hat{x}^-)\,.
@@ -504,8 +511,8 @@ Note that \begin{math} P(t) \end{math} is symmetric and positive semi-definite, 
 \begin{align*}
 tr(P)&=\sum_{i-1}^{n}\lambda_i, 
 \end{align*}
-where \begin{math} tr(P) \end{math} is the trace of \begin{math} P \end{math}, and \begin{math} \lambda_i \end{math} are the eigenvalues of P. Therefore, minimizing \begin{math} tr(P) \end{math} minimizes the estimation error covariance. The Kalman Filter is derived by finding \begin{math} L \end{math} to minimize \begin{math} tr(P) \end{math}.
-The equations of the Kalman Filter can be categorized into two groups: \textit{time update equations} and \textit{measurement update equations}. The first, is responsible for projecting forward in time the current state and error covariance estimates to obtain \textit{a priori} estimate for the next time step. The Measurement update equations are responsible for incorporating a new measurement into the a priori estimate to obtain an improved \textit{a posteriori} estimate.
+where \begin{math} tr(P) \end{math} is the trace of \begin{math} P \end{math}, and \begin{math} \lambda_i \end{math} are the eigenvalues of P. Therefore, minimizing \begin{math} tr(P) \end{math} minimizes the estimation error covariance. The Kalman filter is derived by finding \begin{math} L \end{math} to minimize \begin{math} tr(P) \end{math}.
+The equations of the Kalman filter can be categorized into two groups: \textit{time update equations} and \textit{measurement update equations}. The first, is responsible for projecting forward in time the current state and error covariance estimates to obtain \textit{a priori} estimate for the next time step. The Measurement update equations are responsible for incorporating a new measurement into the a priori estimate to obtain an improved \textit{a posteriori} estimate.
 
 \subsubsection{Time Update Equations}
 Differentiating \begin{math} \tilde{x} \end{math} we get
@@ -555,7 +562,7 @@ P^+ &= E(\tilde{x}^+\tilde{x}^{+^\top}) \nonumber\\
 	&= P^- -P^-C^\top L^\top-LCP^-+LCP^-C^\top L^\top+LRL^\top.
 \end{align}
 Since \begin{math} \eta  \end{math} and \begin{math} \tilde{x}^-  \end{math} are independent, \begin{math} E(\tilde{x}^-\eta^\top L^\top)=E(L\eta\tilde{x}^{-^\top})=0  \end{math}. \\
-To continue our derivation, the following matrix relationship will be required:
+To continue our derivation, the following matrix relationship is required:
 \begin{align*}
 \frac{\partial}{\partial A}tr(BAD)&=B^\top D^\top \\
 \frac{\partial}{\partial A}tr(BAA^\top)&=2AB, if B = B^\top.
@@ -566,7 +573,7 @@ Our goal is to minimize \begin{math} tr(P^+)  \end{math} by choosing \begin{math
 &\Rightarrow 2L(R+CP^-C^\top)=2P^-C^\top \\
 &\Rightarrow L = P^-C^\top (R+CP^-C^\top)^{-1}.
 \end{align*}
-If we substitute into equation ~\ref{eq:P_posteriori} we get
+If we substitute into (\ref{eq:P_posteriori}) we get
 \begin{align*}
 P^+&= P^-+P^-C^\top(R+CP^-C^\top)^{-1}CP^- -P^-C^\top(R+CP^-C^\top)^{-1}CP^- \\
    &  \quad +P^-C^\top(R+CP^-C^\top)^{-1}(CP^-C^\top+R)(R+CP^-C^\top)^{-1}CP^- \\
@@ -575,7 +582,7 @@ P^+&= P^-+P^-C^\top(R+CP^-C^\top)^{-1}CP^- -P^-C^\top(R+CP^-C^\top)^{-1}CP^- \\
    &= (I-LC)P^-.
 \end{align*}
 
-Summarizing the Kalman Filter we have two sets of equations. The time update equations, which propagate the state estimates
+Summarizing the Kalman filter we have two sets of equations. The time update equations, which propagate the state estimates
 \begin{align}
 \dot{\hat{x}}&= A\hat{x}+Bu\\
 \dot{P}&= AP+PA^\top+Q,
@@ -590,15 +597,15 @@ where \begin{math} L_i \end{math} is called the Kalman gain for the \begin{math}
 
 \subsection{Extended Kalman Filter}{\label{sub:EKF}}
 
-This section is based on the work of \cite{Beard2010}. In the previous section we assumed that the system propagation model and measurement model are linear. However, for many applications, including the one used in this thesis, the system propagation model and the measurement model are nonlinear. Therefore the model in equation ~\ref{eq:linear_model} becomes
+This section is based on the work of \cite{Beard2010}. In the previous section we assumed that the system propagation model and measurement model are linear. However, for many applications, including the one used in this thesis, the system propagation model and the measurement model are nonlinear. Therefore the model in (\ref{eq:linear_model}) becomes
 \begin{align}
 \hat{x}&=f(x,u)+\xi \\
 y[n]&=h(x[n],u[n])+\eta[n],
 \end{align}
 
-This case is called the Extended Kalman Filter. For the EKF, the state propagation and update equations use the nonlinear model, but the propagation and update of the error covariance use the Jacobian of \textit{f} for \textit{A}, and the Jacobian of \textit{h} for \textit{C}.
+This case is called the extended Kalman filter. For the EKF, the state propagation and update equations use the nonlinear model, but the propagation and update of the error covariance use the Jacobian of \textit{f} for \textit{A}, and the Jacobian of \textit{h} for \textit{C}.
 
-Pseudo-code for the Continuous Discrete Extended Kalman Filter is given below
+Pseudo-code for the continuous discrete extended Kalman filter is given below
 \renewcommand{\labelitemi}{$\cdot$}
 \begin{itemize}[nosep]
 \item Initialize: $ \hat{x}=x_0 $.
@@ -621,8 +628,8 @@ Pseudo-code for the Continuous Discrete Extended Kalman Filter is given below
 \subsection{Delayed Extended Kalman Filter}{\label{sub:DEKF}}
 In real world applications, measurements usually have processing and communication delays which cannot be ignored. These delays can have big variations, consequently some measurements can arrive in an out of sequence fashion, which worsen the estimations if not handled properly.
 
-In this section we will show a modification of the extended Kalman filter, which enables it to handle delayed measurements and the OOSM problem. This filter works introducing the measurement in the estimation as soon as they arrive, but using it to estimate the states of the aircraft at the time that the measurement was made. After that, this estimation is propagated forward in time. If another measurement more recent is available, then it is incorporated into the estimation and the states are propagated again in time. This is done until the filter is on the current time. Therefore, opposed to how the filter works in \cite{Nettleton2001}, this filter can run in real time. For this, we need to store the state estimations, the error covariance matrices and the delayed measurements for as many time steps as the maximum probable delay. \linebreak \linebreak
-Pseudo-code for the Continuous Discrete Delayed Extended Kalman Filter is given below
+In this section we show a modification of the extended Kalman filter, which enables it to handle delayed measurements and the OOSM problem. This filter works introducing the measurement in the estimation as soon as they arrive, but using it to estimate the states of the aircraft at the time that the measurement was made. After that, this estimation is propagated forward in time. If another measurement more recent is available, then it is incorporated into the estimation and the states are propagated again in time. This is done until the filter is on the current time. Therefore, opposed to how the filter works in \cite{Nettleton2001}, this filter can run in real time. For this, we need to store the state estimations, the error covariance matrices and the delayed measurements for as many time steps as the maximum probable delay. \linebreak \linebreak
+Pseudo-code for the continuous discrete delayed extended Kalman filter is given below
 \renewcommand{\labelitemi}{$\cdot$}
 \begin{itemize}[nosep]
 \item Initialize: $ \hat{x}=x_0 $.
