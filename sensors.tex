@@ -512,7 +512,7 @@ Note that \begin{math} P(t) \end{math} is symmetric and positive semi-definite, 
 tr(P)&=\sum_{i-1}^{n}\lambda_i, 
 \end{align*}
 where \begin{math} tr(P) \end{math} is the trace of \begin{math} P \end{math}, and \begin{math} \lambda_i \end{math} are the eigenvalues of P. Therefore, minimizing \begin{math} tr(P) \end{math} minimizes the estimation error covariance. The Kalman filter is derived by finding \begin{math} L \end{math} to minimize \begin{math} tr(P) \end{math}.
-The equations of the Kalman filter can be categorized into two groups: \textit{time update equations} and \textit{measurement update equations}. The first, is responsible for projecting forward in time the current state and error covariance estimates to obtain \textit{a priori} estimate for the next time step. The Measurement update equations are responsible for incorporating a new measurement into the a priori estimate to obtain an improved \textit{a posteriori} estimate.
+The equations of the Kalman filter can be categorized into two groups: \textit{time update equations} and \textit{measurement update equations}. The first is responsible for projecting forward in time the current state and error covariance estimates to obtain \textit{a priori} estimate for the next time step. The measurement update equations are responsible for incorporating a new measurement into the a priori estimate to obtain an improved \textit{a posteriori} estimate.
 
 \subsubsection{Time Update Equations}
 Differentiating \begin{math} \tilde{x} \end{math} we get
@@ -551,7 +551,6 @@ When a measurement is received, we have that
 		   &= x-\hat{x}^- -L(Cx+\eta-C\hat{x}^-)\\
 		   &= \tilde{x}^- -LC\tilde{x}^- -L\eta.
 \end{align*}
-
 On the other hand we have that
 \begin{align} \label{eq:P_posteriori}
 P^+ &= E(\tilde{x}^+\tilde{x}^{+^\top}) \nonumber\\
@@ -581,7 +580,6 @@ P^+&= P^-+P^-C^\top(R+CP^-C^\top)^{-1}CP^- -P^-C^\top(R+CP^-C^\top)^{-1}CP^- \\
    &= (I-P^-C^\top(R+CP^-C^\top)^{-1}C)P^- \\
    &= (I-LC)P^-.
 \end{align*}
-
 Summarizing the Kalman filter we have two sets of equations. The time update equations, which propagate the state estimates
 \begin{align}
 \dot{\hat{x}}&= A\hat{x}+Bu\\
@@ -602,7 +600,6 @@ This section is based on the work of \cite{Beard2010}. In the previous section w
 \hat{x}&=f(x,u)+\xi \\
 y[n]&=h(x[n],u[n])+\eta[n],
 \end{align}
-
 This case is called the extended Kalman filter. For the EKF, the state propagation and update equations use the nonlinear model, but the propagation and update of the error covariance use the Jacobian of \textit{f} for \textit{A}, and the Jacobian of \textit{h} for \textit{C}.
 
 Pseudo-code for the continuous discrete extended Kalman filter is given below
@@ -628,7 +625,7 @@ Pseudo-code for the continuous discrete extended Kalman filter is given below
 \subsection{Delayed Extended Kalman Filter}{\label{sub:DEKF}}
 In real world applications, measurements usually have processing and communication delays which cannot be ignored. These delays can have big variations, consequently some measurements can arrive in an out of sequence fashion, which worsen the estimations if not handled properly.
 
-In this section we show a modification of the extended Kalman filter, which enables it to handle delayed measurements and the OOSM problem. This filter works introducing the measurement in the estimation as soon as they arrive, but using it to estimate the states of the aircraft at the time that the measurement was made. After that, this estimation is propagated forward in time. If another measurement more recent is available, then it is incorporated into the estimation and the states are propagated again in time. This is done until the filter is on the current time. Therefore, opposed to how the filter works in \cite{Nettleton2001}, this filter can run in real time. For this, we need to store the state estimations, the error covariance matrices and the delayed measurements for as many time steps as the maximum probable delay. \linebreak \linebreak
+In this section we show a modification of the extended Kalman filter, which enables it to handle delayed measurements and the OOSM problem. This filter works by introducing the measurement in the estimation as soon as they arrive, but using it to estimate the states at the time that the measurement was made. After that, this estimation is propagated forward in time. If another measurement more recent is available, then it is incorporated into the estimation and the states are propagated again in time. This is done until the filter is on the current time. Therefore, opposed to how the filter works in \cite{Nettleton2001}, this filter can run in real time. For this, we need to store the state estimations, the error covariance matrices and the delayed measurements for as many time steps as the maximum probable delay. \linebreak \linebreak
 Pseudo-code for the continuous discrete delayed extended Kalman filter is given below
 \renewcommand{\labelitemi}{$\cdot$}
 \begin{itemize}[nosep]

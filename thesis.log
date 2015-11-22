@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (MiKTeX 2.9) (preloaded format=pdflatex 2014.7.21)  22 NOV 2015 16:20
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (MiKTeX 2.9) (preloaded format=pdflatex 2014.7.21)  22 NOV 2015 16:57
 entering extended mode
 **thesis.tex
 (C:\Users\Roque\Documents\GitHub\thesis\thesis.tex
@@ -1145,7 +1145,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 60--62
 
 [10] [11] [12] [13] [14] [15] [16] [17] [18] [19] [20] [21] [22] [23] [24]
 [25] [26] [27] [28] [29] [30]
-Underfull \hbox (badness 10000) in paragraph at lines 631--634
+Underfull \hbox (badness 10000) in paragraph at lines 628--631
 
  []
 
@@ -1722,7 +1722,7 @@ c/amsfonts/cm/cmsy8.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/a
 msfonts/cm/cmti10.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/ams
 fonts/symbols/msam10.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/
 amsfonts/symbols/msbm10.pfb>
-Output written on thesis.pdf (61 pages, 2380082 bytes).
+Output written on thesis.pdf (61 pages, 2380024 bytes).
 PDF statistics:
  538 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
