@@ -2,20 +2,20 @@
  \newcommand{\cursiva}[1]{\textit{#1}}
  
  
-\chapter{Kalman Filter Equations, Camera Model and GPS Error Model}
+\chapter{Kalman filter Equations, Camera Model and GPS Error Model}
 \label{ch:Kalman_Filter}
 
 \section{Introduction}
 
 \section{Fixed-Wing Motion Model}
 	
-\section{Kalman Filter}
+\section{Kalman filter}
 
-A Kalman Filter is an optimal recursive data processing algorithm. One of the aspect of this optimality is that the Kalman Filter incorporates all the information that can be provided to it. It processes all available measurements, regardless of their precision, to estimate the current value of the variables of interest, with use of knowledge of the system and measurement device dynamics, the statistical description of the system noises, measurement errors and uncertainty in the dynamics models, and any available information about initial conditions of the variables of interest. One of the interesting characteristic of the Kalman Filter is that it does not require all previous data to be kept in memory and reprocessed every time a new measurement is taken, making the filter implementation pore practical. The filter is actually a data processing algorithm, and therefore it incorporates discrete-time measurement samples rather than continuous time inputs. Often the variables of interest, some finite number of quantities to describe the state of the system, cannot be measured directly, and some means of inferring these values from the available data must be generated, thus the need of the filter. This inference is complicated by the facts that the system is typically driven by inputs other than our own known controls and that the relationships among the various state variables and measured outputs are known only with some degree of uncertainty. Furthermore, any measurement will be corrupted to some degree by noise, biases, and device inaccuracies, and so a means of extracting valuable information from a noisy signal must be provided as well. There may also be a number of different measuring devices, each with its own particular dynamics and error characteristics, that provide some information about a particular variable, and it would be desirable to combine their outputs in a systematic and optimal manner. A Kalman Filter combines all available measurement data, plus prior knowledge about the system and measuring devices, to produce an estimate of the desired variables in such a manner that the error is minimized statistically. In other words, if we were to run a number of candidate filters many times for some application, then the average results of the Kalman Filter would be better than the average results of any other. \cite{Maybeck1979}
+A Kalman filter is an optimal recursive data processing algorithm. One of the aspect of this optimality is that the Kalman filter incorporates all the information that can be provided to it. It processes all available measurements, regardless of their precision, to estimate the current value of the variables of interest, with use of knowledge of the system and measurement device dynamics, the statistical description of the system noises, measurement errors and uncertainty in the dynamics models, and any available information about initial conditions of the variables of interest. One of the interesting characteristic of the Kalman filter is that it does not require all previous data to be kept in memory and reprocessed every time a new measurement is taken, making the filter implementation pore practical. The filter is actually a data processing algorithm, and therefore it incorporates discrete-time measurement samples rather than continuous time inputs. Often the variables of interest, some finite number of quantities to describe the state of the system, cannot be measured directly, and some means of inferring these values from the available data must be generated, thus the need of the filter. This inference is complicated by the facts that the system is typically driven by inputs other than our own known controls and that the relationships among the various state variables and measured outputs are known only with some degree of uncertainty. Furthermore, any measurement will be corrupted to some degree by noise, biases, and device inaccuracies, and so a means of extracting valuable information from a noisy signal must be provided as well. There may also be a number of different measuring devices, each with its own particular dynamics and error characteristics, that provide some information about a particular variable, and it would be desirable to combine their outputs in a systematic and optimal manner. A Kalman filter combines all available measurement data, plus prior knowledge about the system and measuring devices, to produce an estimate of the desired variables in such a manner that the error is minimized statistically. In other words, if we were to run a number of candidate filters many times for some application, then the average results of the Kalman filter would be better than the average results of any other. \cite{Maybeck1979}
 
-\subsection{Discrete Kalman Filter}
+\subsection{Discrete Kalman filter}
 
-There are several different forms of the Kalman Filter but the form particularly useful for Small UAS applications is the continuous-propagation, discrete-measurement Kalman Filter.
+There are several different forms of the Kalman filter but the form particularly useful for Small UAS applications is the continuous-propagation, discrete-measurement Kalman filter.
 Lets assume that the linear system dynamics are given by
 \begin{equation}\label{eq:linear_model}
 \begin{aligned}
@@ -24,7 +24,7 @@ y[n]=Cx[n]+\eta[n],
 \end{aligned}
 \end{equation}
 where \begin{math} y[n] = y(t_n) \end{math} is the \begin{math} n^{th} \end{math} sample of \begin{math} y \end{math}, \begin{math} x[n] = x(t_n) \end{math} is the \begin{math} n^{th} \end{math} sample of \begin{math} x \end{math}, \begin{math} \eta \end{math} is the measurement noise at time \begin{math} t_n\end{math}, \begin{math} \xi \end{math} is a zero-mean Gaussian random process with covariance \begin{math} Q \end{math}, and \begin{math} \eta[n] \end{math} is a zero-mean Gaussian random variable with covariance \begin{math} R \end{math}. The random process \begin{math} \xi \end{math} is called the process noise and represents modeling error and disturbances on the system. The random variable \begin{math} \eta \end{math} is called the measurement noise and represents noise on the sensors. The covariance \begin{math} R \end{math} can usually be estimated from sensor calibration, but the covariance \begin{math} Q \end{math} is generally unknown and therefore becomes a system parameter that can be tuned to improve the performance of the observer. Note that the sample rate does not need to be fixed. \linebreak
-The continuous-discrete Kalman Filter has the form
+The continuous-discrete Kalman filter has the form
 \begin{align}
 \dot{\hat{x}}&=A\hat{x}+Bu \\
 \hat{x}^+&=\hat{x}^-+L(y(t_n)-C\hat{x}^-).
@@ -37,8 +37,8 @@ Note that \begin{math} P(t) \end{math} is symmetric and positive semi-definite, 
 \begin{align*}
 tr(P)&=\sum_{i-1}^{n}\lambda_i, 
 \end{align*}
-where \begin{math} tr(P) \end{math} is the trace of \begin{math} P \end{math}, and \begin{math} \lambda_i \end{math} are the eigenvalues of P. Therefore, minimizing \begin{math} tr(P) \end{math} minimizes the estimation error covariance. The Kalman Filter is derived by finding \begin{math} L \end{math} to minimize \begin{math} tr(P) \end{math}.
-The equations of the Kalman Filter can be categorized into two groups: \textit{time update equations} and \textit{measurement update equations}. The first, is responsible for projecting forward in time the current state and error covariance estimates to obtain \textit{a priori} estimate for the next time step. The Measurement update equations are responsible for incorporating a new measurement into the a priori estimate to obtain an improved \textit{a posteriori} estimate.
+where \begin{math} tr(P) \end{math} is the trace of \begin{math} P \end{math}, and \begin{math} \lambda_i \end{math} are the eigenvalues of P. Therefore, minimizing \begin{math} tr(P) \end{math} minimizes the estimation error covariance. The Kalman filter is derived by finding \begin{math} L \end{math} to minimize \begin{math} tr(P) \end{math}.
+The equations of the Kalman filter can be categorized into two groups: \textit{time update equations} and \textit{measurement update equations}. The first, is responsible for projecting forward in time the current state and error covariance estimates to obtain \textit{a priori} estimate for the next time step. The Measurement update equations are responsible for incorporating a new measurement into the a priori estimate to obtain an improved \textit{a posteriori} estimate.
 
 \subsubsection{Time Update Equations}
 Differentiating \begin{math} \tilde{x} \end{math} we get
@@ -108,7 +108,7 @@ P^+&= P^-+P^-C^\top(R+CP^-C^\top)^{-1}CP^- -P^-C^\top(R+CP^-C^\top)^{-1}CP^- \\
    &= (I-LC)P^-.
 \end{align*}
 
-Summarizing the Kalman Filter we have two sets of equations. The time update equations, which propagate the state estimates
+Summarizing the Kalman filter we have two sets of equations. The time update equations, which propagate the state estimates
 \begin{align}
 \dot{\hat{x}}&= A\hat{x}+Bu\\
 \dot{P}&= AP+PA^\top+Q,
@@ -121,7 +121,7 @@ P^+ &= (I-L_iC_i)P^- \\
 \end{align}
 where \begin{math} L_i \end{math} is called the Kalman gain for the \begin{math} i^{th}\end{math} sensor.
 
-\subsection{Extended Kalman Filter}
+\subsection{Extended Kalman filter}
 
 In the previous section we assumed that the system propagation model and measurement model are linear. However, for many applications, including the one used in this thesis, the system propagation model and the measurement model are nonlinear. Therefore the model in equation ~\ref{eq:linear_model} becomes
 \begin{align}
@@ -129,9 +129,9 @@ In the previous section we assumed that the system propagation model and measure
 y[n]&=h(x[n],u[n])+\eta[n],
 \end{align}
 
-This case is called the Extended Kalman Filter. For the EKF, the state propagation and update equations use the nonlinear model, but the propagation and update of the error covariance use the Jacobian of \textit{f} for \textit{A}, and the Jacobian of \textit{h} for \textit{C}.
+This case is called the Extended Kalman filter. For the EKF, the state propagation and update equations use the nonlinear model, but the propagation and update of the error covariance use the Jacobian of \textit{f} for \textit{A}, and the Jacobian of \textit{h} for \textit{C}.
 
-Pseudo-code for the Continuous Discrete Extended Kalman Filter is given below
+Pseudo-code for the Continuous Discrete Extended Kalman filter is given below
 \begin{enumerate}[nosep]
 \item Initialize: $ \hat{x}=\chi_0 $.
 \item Pick an output sample rate $T_{out}$ that is less than the sample rates of the sensors.
@@ -149,7 +149,7 @@ Pseudo-code for the Continuous Discrete Extended Kalman Filter is given below
 \item \textbf{end if}
 \end{enumerate}
 
-\subsection{Delayed Extended Kalman Filter}
-In real world applications, measurements usually have computing or communication delays which cannot be disregarded. If the delays are not fixed, some measurements can arrive in an out of sequence fashion, which worsen the estimations. The EKF has been modified to address this scenario, resulting in what we call the Delayed Extended Kalman Filter. 
+\subsection{Delayed Extended Kalman filter}
+In real world applications, measurements usually have computing or communication delays which cannot be disregarded. If the delays are not fixed, some measurements can arrive in an out of sequence fashion, which worsen the estimations. The EKF has been modified to address this scenario, resulting in what we call the Delayed Extended Kalman filter. 
 This new filter uses the delayed measurements to estimate the states of the system at the time the measurements were taken, and then it propagates the estimations forward in time. Therefore, it requires to store the state estimations, the error covariance matrices and the delayed measurements for as many time steps as the maximum probable delay.
 

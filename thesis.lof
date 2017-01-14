@@ -4,9 +4,9 @@
 \contentsline {figure}{\numberline {3.2}{\ignorespaces Antenna Pointer Block}}{35}
 \contentsline {figure}{\numberline {3.3}{\ignorespaces Antenna Pointer tracking a UAV.}}{37}
 \contentsline {figure}{\numberline {4.1}{\ignorespaces UAV Trajectory Comparison - GPS vs GPS and Camera}}{39}
-\contentsline {figure}{\numberline {4.2}{\ignorespaces North Position Error Comparison - GPS vs GPS and Camera}}{40}
+\contentsline {figure}{\numberline {4.2}{\ignorespaces North Position Error Comparison - GPS vs GPS and Camera}}{39}
 \contentsline {figure}{\numberline {4.3}{\ignorespaces East Position Error Comparison - GPS vs GPS and Camera}}{40}
-\contentsline {figure}{\numberline {4.4}{\ignorespaces Azimuth Error Comparison - GPS vs GPS coupled with Camera}}{41}
+\contentsline {figure}{\numberline {4.4}{\ignorespaces Azimuth Error Comparison - GPS vs GPS coupled with Camera}}{40}
 \contentsline {figure}{\numberline {4.5}{\ignorespaces Elevation Error Comparison - GPS vs GPS coupled with Camera}}{41}
 \contentsline {figure}{\numberline {4.6}{\ignorespaces UAV Trajectory Comparison - EKF vs DEKF}}{42}
 \contentsline {figure}{\numberline {4.7}{\ignorespaces North Position Error Comparison - EKF vs DEKF}}{43}

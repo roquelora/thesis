@@ -56,7 +56,6 @@ The troposphere is the lowest portion of the atmosphere containing approximately
 \paragraph{Multipath Reception} \hspace{0pt} \\
 Multipath errors occur when reflected signals are received by the GPS receiver, mixing with the real signal. Big surfaces as large buildings or structures increases this error. Normally this error source contributes to 1 m of variation in the GPS measurement.
 
-
 \paragraph{Receiver Measurement} \hspace{0pt} \\
 This error is caused by the implicit limits with which the time of the satellite signal can be calculated. Modern receivers errors for this source is less than 0.5 m. \\
 
@@ -64,10 +63,10 @@ The pseudo-range error sources described previously are considered statistically
 
 \subsubsection{Transient Characteristic of GPS Positioning Error}
 For simulation purposes we are required to know the dynamic characteristics of the GPS error. According to \cite{Rankin1994}, the dynamic model that describes the GPS error is a Gauss-Markov process which is modeled by
-\begin{equation}
-\nu[n+1]=e^{-k_{GPS}T_s}\nu[n]+\eta_{GPS}[n]
-\end{equation}
-Where \begin{math} \nu[n] \end{math} is the error being modeled, \begin{math} \eta_{GPS}[n] \end{math} is zero-mean Gaussian white noise, \begin{math} 1/k_{GPS} \end{math} is the time constant of the process, and \begin{math} T_s \end{math} is the sample time. An appropriate model for simulation of GPS measurements is given by
+\begin{align}
+\nu[n+1]=e^{-k_{GPS}T_s}\nu[n]+\eta_{GPS}[n]\,,
+\end{align}
+where \begin{math} \nu[n] \end{math} is the error being modeled, \begin{math} \eta_{GPS}[n] \end{math} is zero-mean Gaussian white noise, \begin{math} 1/k_{GPS} \end{math} is the time constant of the process, and \begin{math} T_s \end{math} is the sample time. An appropriate model for simulation of GPS measurements is given by
 \begin{align}
 y_{GPS,n}[n]&=p_n[n]+v_n[n]\\
 y_{GPS,e}[n]&=p_e[n]+v_e[n]\\
@@ -80,7 +79,7 @@ Using the Doppler effect, which is the changes in frequency of a wave for an obs
 The last two are calculated from the north and east velocity components as
 \begin{align}
 V_g&=\sqrt{V_n^2+V_e^2} \label{eq:Vg}\\
-\chi&=\tan^{-1}\left(\frac{V_n}{V_e}\right)\,,\label{eq:chi}
+\chi&=\tan^{-1}\left(\frac{V_n}{V_e}\right)\,,\label{eq:chi}\,
 \end{align}
 where $ V_n=V_a\cos\psi+w_n $, and $ V_e=V_a\sin\psi+w_e $. 
 
@@ -105,8 +104,8 @@ where $\eta_V$ and $\eta_\chi$ are zero-mean Gaussian processes with variances $
 \subsection{GPS Smoothing}
 In this section we present an algorithm that estimates the position, ground speed, course, wind speed and heading of a fixed wing aircraft. Assuming that the flight path angle ($\gamma$) is zero, the position can be expressed as
 \begin{align*}
-p_n&=V_g\cos\chi \\
-p_e&=V_g\sin\chi
+p_n&=V_g\cos\chi\\
+p_e&=V_g\sin\chi\,
 \end{align*}
 where $\chi$ is the course angle of the UAS.
 To get the variation of the ground speed we must differentiate (\ref{eq:Vg}) getting
@@ -237,7 +236,7 @@ Assuming that the center of mass of the antenna pointer is the origin of the gim
 \begin{align*}
 \mathcal{F}^c=(\boldsymbol{i}^c,\boldsymbol{j}^c,\boldsymbol{k}^c)\,.
 \end{align*}
-The second frame of interest is obtained by rotating the body frame an angle of $\alpha_{az}$, the azimuth angle, about the $\boldsymbol{k}^b$ axis, resulting in the gimbal-1 frame. This frame is denoted by
+The second frame of interest is obtained by rotating the body frame an angle of $\alpha_{az}$, the azimuth angle, about the $\boldsymbol{k}^b$ axis, resulting in the gimbal frame (${g1}$). This frame is denoted by
 \begin{align*}
 \mathcal{F}^{g1}=(\boldsymbol{i}^{g1},\boldsymbol{j}^{g1},\boldsymbol{k}^{g1})\,.
 \end{align*}
@@ -304,7 +303,7 @@ Defining $\boldsymbol{l}^c$ as the vector to the UAS and $\mathbb{L}=\lvert\lver
 f
 \end{pmatrix}\,,
 \end{align}
-Since $\mathbb{L}$ is unknown, $\boldsymbol{l}^c$ cannot be calculated only with camera data. Even so, the unit vector that points towards the aircraft can be obtained as
+since $\mathbb{L}$ is unknown, $\boldsymbol{l}^c$ cannot be calculated only with camera data. Even so, the unit vector that points towards the aircraft can be obtained as
 \begin{align}{\label{eq:norm_line_of_sight_vector}}
 \frac{\boldsymbol{l}^c}{\mathbb{L}}=\frac{1}{F}
 \begin{pmatrix}
@@ -430,7 +429,7 @@ p_d
 + h \frac{\mathcal{R}_b^i\mathcal{R}_g^b\mathcal{R}_c^g\check{\boldsymbol{l}}^c}{\boldsymbol{k}^i\cdot\mathcal{R}_b^i\mathcal{R}_g^b\mathcal{R}_c^g\check{\boldsymbol{l}}^c}\,
 \end{align}
 %checked until here
-\subsubsection{Geolocation Using an Extended Kalman Filter}{\label{sub:geolocatoin_with_EKF}}
+\subsubsection{Geolocation Using an Extended Kalman filter}{\label{sub:geolocatoin_with_EKF}}
 Since the geolocation estimation made by (\ref{eq:geolocation_estimate}) provides an approximation of the location of the UAS, and does not take into account the past measurements, it is prone to errors. Therefore, in this section we present a method to solve the geolocation problem iteratively, the extended Kalman filter(EKF). This algorithm and its derivation are explained in section \ref{sect:kalman_filter}.
 
 If we assume that the antenna pointer is stationary, we have
@@ -483,11 +482,11 @@ The output equation is given by (\ref{eq:p_uav}), and its Jacobian is given by
 \end{align*}
 
 \pagebreak
-\section{Kalman Filter}{\label{sect:kalman_filter}}
+\section{Kalman filter}{\label{sect:kalman_filter}}
 
 A Kalman filter is an optimal recursive data processing algorithm. One of the aspect of this optimality is that the Kalman filter incorporates all the information that can be provided to it. It processes all available measurements, regardless of their precision, to estimate the current value of the variables of interest, with use of knowledge of the system and measurement device dynamics, the statistical description of the system noises, measurement errors and uncertainty in the dynamics models, and any available information about initial conditions of the variables of interest. One of the interesting characteristics of the Kalman filter is that it does not require all previous data to be kept in memory and reprocessed every time a new measurement is taken, making the filter implementation more practical. The filter is actually a data processing algorithm, and therefore it incorporates discrete-time measurement samples rather than continuous time inputs. Often the variables of interest, some finite number of quantities to describe the state of the system, cannot be measured directly, and some means of inferring these values from the available data must be generated, thus the need of the filter. This inference is complicated by the facts that the system is typically driven by inputs other than our own known controls and that the relationships among the various state variables and measured outputs are known only with some degree of uncertainty. Furthermore, any measurement is corrupted to some degree by noise, biases, and device inaccuracies, and so a means of extracting valuable information from a noisy signal must be provided as well. There may also be a number of different measuring devices, each with its own particular dynamics and error characteristics, that provide some information about a particular variable, and it would be desirable to combine their outputs in a systematic and optimal manner. A Kalman filter combines all available measurement data, plus prior knowledge about the system and measuring devices, to produce an estimate of the desired variables in such a manner that the error is minimized statistically. In other words, if we were to run a number of candidate filters many times for some application, then the average results of the Kalman filter would be better than the average results of any other \cite{Maybeck1979}.
 
-\subsection{Discrete Kalman Filter}
+\subsection{Discrete Kalman filter}
 
 This section is based on the work of \cite{Beard2010}. There are several different forms of the Kalman filter but the form particularly useful for Small UAS applications is the continuous-propagation, discrete-measurement Kalman filter.
 Lets assume that the linear system dynamics are given by
@@ -549,7 +548,7 @@ When a measurement is received, we have that
 \begin{align*}
 \tilde{x}^+&= x-\hat{x}^+\\
 		   &= x-\hat{x}^- -L(Cx+\eta-C\hat{x}^-)\\
-		   &= \tilde{x}^- -LC\tilde{x}^- -L\eta.
+		   &= \tilde{x}^- -LC\tilde{x}^- -L\eta.\
 \end{align*}
 On the other hand we have that
 \begin{align} \label{eq:P_posteriori}
@@ -593,7 +592,7 @@ P^+ &= (I-L_iC_i)P^- \\
 \end{align}
 where \begin{math} L_i \end{math} is called the Kalman gain for the \begin{math} i^{th}\end{math} sensor.
 
-\subsection{Extended Kalman Filter}{\label{sub:EKF}}
+\subsection{Extended Kalman filter}{\label{sub:EKF}}
 
 This section is based on the work of \cite{Beard2010}. In the previous section we assumed that the system propagation model and measurement model are linear. However, for many applications, including the one used in this thesis, the system propagation model and the measurement model are nonlinear. Therefore the model in (\ref{eq:linear_model}) becomes
 \begin{align}
@@ -622,7 +621,7 @@ Pseudo-code for the continuous discrete extended Kalman filter is given below
 \item \textbf{end if}
 \end{itemize}
 
-\subsection{Delayed Extended Kalman Filter}{\label{sub:DEKF}}
+\subsection{Delayed Extended Kalman filter}{\label{sub:DEKF}}
 In real world applications, measurements usually have processing and communication delays which cannot be ignored. These delays can have big variations, consequently some measurements can arrive in an out of sequence fashion, which worsen the estimations if not handled properly.
 
 In this section we show a modification of the extended Kalman filter, which enables it to handle delayed measurements and the OOSM problem. This filter works by introducing the measurement in the estimation as soon as they arrive, but using it to estimate the states at the time that the measurement was made. After that, this estimation is propagated forward in time. If another measurement more recent is available, then it is incorporated into the estimation and the states are propagated again in time. This is done until the filter is on the current time. Therefore, opposed to how the filter works in \cite{Nettleton2001}, this filter can run in real time. For this, we need to store the state estimations, the error covariance matrices and the delayed measurements for as many time steps as the maximum probable delay. \linebreak \linebreak

@@ -2,7 +2,7 @@
 \label{ch:simulation}
 
 \section{Simulation Overview}
-This simulation was developed by \cite{Sharma2013} using MATLAB and Simulink, for the purpose of tracking several ground targets. This was achieved by using a camera mounted in an aircraft and pointing it in an optimal fashion to improve the estimation of the states of all the objectives. A block was added to provide the means of pointing an antenna and a camera towards a UAV, estimating the states with a Delayed Extended Kalman Filter. In this study we are not concerned about the behavior of the plane, since we will point it as long as there is line-of-sight. The simulation has four main blocks: UAV Sensor Block, Target Selection Step, Antenna Pointer block, and 3-D Plot block. We will only focus on the block that we developed, the Antenna Pointer block.
+This simulation was developed by \cite{Sharma2013} using MATLAB and Simulink, for the purpose of tracking several ground targets. This was achieved by using a camera mounted in an aircraft and pointing it in an optimal fashion to improve the estimation of the states of all the objectives. A block was added to provide the means of pointing an antenna and a camera towards a UAV, estimating the states with a Delayed Extended Kalman filter. In this study we are not concerned about the behavior of the plane, since we will point it as long as there is line-of-sight. The simulation has four main blocks: UAV Sensor Block, Target Selection Step, Antenna Pointer block, and 3-D Plot block. We will only focus on the block that we developed, the Antenna Pointer block.
 
 \begin{figure}[h!]
   %\centering
@@ -29,7 +29,7 @@ This block generates the GPS measurements based in the real states received from
 The camera block simulates a camera mounted in the antenna pointer working at a 10 Hz frequency. If the aircraft is in the field of view of the camera, the position in the camera frame is sent to the EKF/DEKF to introduce this data to the estimation of the states. In this simulation we assume that there is an algorithm which detects the UAV as long as it is in the field of view of the camera. The model of this camera is explained in section \ref{sub:camera_model}.
 
 \subsection{EKF/DEKF}
-This block process the information sent by the GPS and camera blocks to estimate the states of the aircraft. The processing of this data is done by the Delayed Extended Kalman Filter, defined in section \ref{sub:DEKF}, which compensates for the delays in the GPS measurements. For comparison purposes the Extended Kalman Filter defined in section \ref{sub:EKF} is used, to see how the estimates are impacted if we disregards the delays in the measurements.
+This block process the information sent by the GPS and camera blocks to estimate the states of the aircraft. The processing of this data is done by the Delayed Extended Kalman filter, defined in section \ref{sub:DEKF}, which compensates for the delays in the GPS measurements. For comparison purposes the Extended Kalman filter defined in section \ref{sub:EKF} is used, to see how the estimates are impacted if we disregards the delays in the measurements.
 In this work, we assume that the delays in the camera measurements can be neglected since the processing unit and the camera are connected directly.  
 
 \subsection{Pointer}
