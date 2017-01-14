@@ -112,29 +112,34 @@ To get the variation of the ground speed we must differentiate (\ref{eq:Vg}) get
 \begin{align*}
 \dot{V}_g &= \frac{d}{dt}\sqrt{(V_a\cos\psi+w_n)^2+(V_a\sin\psi+w_e)^2} \\
 		  &= \frac{1}{V_g}[(V_a\cos\psi+w_n)(\dot{V}_a\cos\psi-V_a\dot{\psi}\sin\psi+\dot{w}_n)\\
-		  & \quad +(V_a\sin\psi+w_e)(\dot{V}_a\sin\psi+V_a\dot{\psi}\cos\psi+\dot{w}_e)]\,.
+		  & \quad +(V_a\sin\psi+w_e)(\dot{V}_a\sin\psi+V_a\dot{\psi}\cos\psi+\dot{w}_e)]\,,
 \end{align*}
+where $\psi+w_n$ and $\psi+w_e$ are the wind speed in the north and the east direction respectively, and $V_a$ is the air velocity.
 If we assume that the wind speed and airspeed are constant the evolution of the ground speed simplifies to
 \begin{align*}
 \dot{V}_g=\frac{(V_a\cos\psi+w_n)(-V_a\dot{\psi}\sin\psi)+(V_a\sin\psi+w_e)(V_a\dot{\psi}\cos\psi)}{V_g}\,.
 \end{align*}
 On the other hand, the evolution of $\chi$ is described as
 \begin{align*}
-\dot{\chi}=\frac{g}{V_g}\tan\phi\cos(\chi-\psi)\,.
+\dot{\chi}=\frac{g}{V_g}\tan\phi\cos(\chi-\psi)\,,
 \end{align*}
-Assuming that the wind speed is constant we have that
-\begin{align*}
-\dot{w}_n&=0 \\
-\dot{w}_e&=0\,.
-\end{align*}
-The dynamic of $\psi$ is given by
+and the dynamic of $\psi$ is given by
 \begin{align*}
 \dot{\psi}=q\frac{\sin\phi}{\cos\phi}+r\frac{\cos\phi}{\cos\phi}\,.
 \end{align*}
 
 The nonlinear propagation model is given by $\dot{x}=f(x,u)$, where $x$ is the state and is defined as $x=(p_n,p_e,V_g,\chi,w_n,w_e,\psi)^\top$, and $u$ is the input expressed as $u=(V_a,q,r,\phi,\theta)^\top$, and $\dot{x}$ is defined as
 \begin{align}
-f(x,u) \triangleq 
+\begin{pmatrix}
+\dot{p_n} \\
+\dot{p_e} \\
+\dot{V_g} \\
+\dot{\chi} \\
+\dot{w_n} \\
+\dot{w_e} \\
+\dot{\psi} \\
+\end{pmatrix}
+= 
 \begin{pmatrix}
 V_g\cos\chi \\
 V_g\sin\chi \\
@@ -145,7 +150,7 @@ V_g\sin\chi \\
 q\frac{\sin\phi}{\cos\phi}+r\frac{\cos\phi}{\cos\phi}
 \end{pmatrix}\,.
 \end{align}
-And the Jacobian matrix, obtained by taking partial derivatives of the propagation model $\dot{x}=f(x,u)$ with respect to $x$, is expressed as
+The Jacobian matrix, obtained by taking partial derivatives of the propagation model $\dot{x}=f(x,u)$ with respect to $x$, is expressed as
 \begin{align}
 \frac{\partial f(x,u)}{\partial x}=
 \begin{pmatrix}
@@ -331,7 +336,7 @@ Since this unit vector is used multiple times throughout this section, we use th
 \end{align*}
 \pagebreak
 \subsection{Gimbal Pointing}{\label{sub:gimbal_pointing}}
-In this section we present a basic gimbal-pointing algorithm, which is used by our antenna pointer. The tracking system is assumed to pan and tilt with the respective angles azimuth and elevation. The dynamic model of the gimbal is given by
+In this section we present a basic gimbal-pointing algorithm, which is used by our antenna pointer. The tracking system is assumed to pan and tilt with the respective angles azimuth and elevation. The dynamic model of the gimbal is assumed as
 \begin{align*}
 \dot{\alpha}_{az}&=u_{az} \\
 \dot{\alpha}_{el}&=u_{el}\,.
@@ -340,7 +345,7 @@ The purpose of this algorithm is to point an antenna mounted in the gimbal to a 
 \begin{align*}
 \boldsymbol{l}_{d}^i\triangleq \boldsymbol{p}_{UAV}^i-\boldsymbol{p}_{AP}^i\,,
 \end{align*}
-where $\boldsymbol{p}_{AP}^i = (p_n,p_e,p_d)^\top$ is the inertial position of the antenna pointer and where the subscript $d$ indicates a desired quantity. The unit vector that targets the UAS in the body-frame is
+where $\boldsymbol{p}_{AP}^i = (p_n,p_e,p_d)^\top$ is the inertial position of the antenna pointer and the subscript $_d$ indicates a desired quantity. The unit vector that targets the UAS in the body-frame is
 \begin{align*}
 \check{\boldsymbol{l}}_d^b=\frac{1}{\lvert\lvert \boldsymbol{l}_d^i\rvert\rvert}\mathcal{R}_i^bl_d^i\,.
 \end{align*}
@@ -399,13 +404,13 @@ where $k_{az}$ and $k_{el}$ are positive control gains.
 The objective of this section is to describe an algorithm that can determine the position of an aircraft in inertial coordinates using a EO/IR camera mounted in the antenna pointer. For this study we assume that the antenna pointer can measure its own position.
 Continuing the discussion of section \ref{sub:gimbal_camera_frames}, lets define $\boldsymbol{l}=\boldsymbol{p}_{UAV}-\boldsymbol{p}_{AP}$ as the relative position vector between the aircraft and the antenna pointer, $\mathbb{L}=\lvert\lvert \boldsymbol{l}\rvert\rvert$ as the range to the aircraft, and $\check{\boldsymbol{l}}=\boldsymbol{l}/\mathbb{L}$ as the unit vector that points towards the UAV. Using simple geometry, we have that
 \begin{align}{\label{eq:p_uav}}
-\boldsymbol{p}_{_{UAV}}^i&=\boldsymbol{p}_{AP}^i+\mathcal{R}_b^i\mathcal{R}_g^b\mathcal{R}_g^c\boldsymbol{l}^c\nonumber \\
-&= \boldsymbol{p}_{AP}^i+\mathbb{L}(\mathcal{R}_b^i\mathcal{R}_g^b\mathcal{R}_g^c\check{\boldsymbol{l}}^c)\,,
+\boldsymbol{p}_{_{UAV}}^i&=\boldsymbol{p}_{AP}^i+\mathcal{R}_b^i\mathcal{R}_g^b\mathcal{R}_c^g\boldsymbol{l}^c\nonumber \\
+&= \boldsymbol{p}_{AP}^i+\mathbb{L}(\mathcal{R}_b^i\mathcal{R}_g^b\mathcal{R}_c^g\check{\boldsymbol{l}}^c)\,,
 \end{align}
 where $\boldsymbol{p}_{AP}^i=(p_n,p_e,p_d)^\top$, $\mathcal{R}_b^i=\mathcal{R}_b^i(\phi,\theta,\psi)$, and $\mathcal{R}_g^b=\mathcal{R}_g^b(\alpha_{az},\alpha_{el})$. Note that all the elements on the right-hand side of (\ref{eq:p_uav}) are known, except $\mathbb{L}$. Hence, the geolocation of a target is simply as estimating the range to the target $\mathbb{L}$.
 
 \subsubsection{Range to Target Using the Flat-Earth Model}
-Since we assumed that the antenna pointer can determine its position, we have available the height-above-ground of the pointer. Also since UAS missions are are not usually long range we can neglect the curvature of the earth, and assume a flat-earth model. Then using simple trigonometry we have that
+Since we assumed that the antenna pointer can determine its position, we have available the height-above-ground of the pointer, $h$. Also since UAS missions are are not usually long range we can neglect the curvature of the earth, and assume a flat-earth model. Then using simple trigonometry we have that
 \begin{align*}
 \mathbb{L}=\frac{h}{\cos\varphi}\,,
 \end{align*} 
@@ -488,7 +493,7 @@ A Kalman filter is an optimal recursive data processing algorithm. One of the as
 
 \subsection{Discrete Kalman filter}
 
-This section is based on the work of \cite{Beard2010}. There are several different forms of the Kalman filter but the form particularly useful for Small UAS applications is the continuous-propagation, discrete-measurement Kalman filter.
+This section is based on the work of \cite{Beard2010}. There are several different forms of the Kalman filter, but the form particularly useful for Small UAS applications is the continuous-propagation, discrete-measurement Kalman filter.
 Lets assume that the linear system dynamics are given by
 \begin{equation}\label{eq:linear_model}
 \begin{aligned}
@@ -500,8 +505,9 @@ where \begin{math} y[n] = y(t_n) \end{math} is the \begin{math} n^{th} \end{math
 The continuous-discrete Kalman filter has the form
 \begin{align}
 \dot{\hat{x}}&=A\hat{x}+Bu \\
-\hat{x}^+&=\hat{x}^-+L(y(t_n)-C\hat{x}^-)\,.
+\hat{x}^+&=\hat{x}^-+L(y(t_n)-C\hat{x}^-)\,,
 \end{align}
+where $L$ is the Kalman gain.
 Define the estimation error as \begin{math} \tilde{x}=x-\hat{x} \end{math}. The covariance of the estimation error at time \begin{math} t \end{math} is given by
 \begin{align}
 P(t)&\triangleq E[\tilde{x}(t)\tilde{x}(t)^\top]\,.

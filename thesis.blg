@@ -18,8 +18,11 @@ Database file #2: library.bib
 -- http://www.michaelshell.org/tex/ieeetran/bibtex/
 -- See the "IEEEtran_bst_HOWTO.pdf" manual for usage information.
 Warning--empty journal in Hilton1993
+Warning--empty journal in Nettleton2001
+Warning--empty journal in Larsen1998
+Warning--empty journal in Mallick2001
 Warning--empty journal in Challa2002
 Warning--missing publisher in Maybeck1979
 
 Done.
-(There were 3 warnings)
+(There were 6 warnings)

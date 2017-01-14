@@ -25,24 +25,23 @@
 \BIBentryALTinterwordspacing
 R.~Hilton, D.~Martin, and W.~Blair, ``{Tracking with time-delayed data in
   multisensor systems},'' 1993. [Online]. Available:
-  \url{http://oai.dtic.mil/oai/oai?verb=getRecord\&metadataPrefix=html\&identifier=ADA271334}
+  \url{http://oai.dtic.mil/oai/oai?verb=getRecord{\&}metadataPrefix=html{\&}identifier=ADA271334}
 \BIBentrySTDinterwordspacing
 
 \bibitem{Nettleton2001}
 \BIBentryALTinterwordspacing
 E.~Nettleton and H.~Durrant-Whyte, ``{Delayed and asequent data in
-  decentralized sensing networks},'' \emph{Intelligent \ldots}, vol. 4571, no.
-  2001, pp. 1--9, 2001. [Online]. Available:
-  \url{http://spie.org/x648.html?product\_id=444148
+  decentralized sensing networks},'' vol. 4571, no. 2001, pp. 1--9, 2001.
+  [Online]. Available: \url{http://spie.org/x648.html?product{\_}id=444148
   http://proceedings.spiedigitallibrary.org/proceeding.aspx?articleid=901100}
 \BIBentrySTDinterwordspacing
 
 \bibitem{Larsen1998}
 \BIBentryALTinterwordspacing
 T.~Larsen and N.~Andersen, ``{Incorporation of time delayed measurements in a
-  discrete-time Kalman filter},'' \emph{Decision and Control, \ldots}, vol.~4,
-  no. December, pp. 3972--3977, 1998. [Online]. Available:
-  \url{http://ieeexplore.ieee.org/xpls/abs\_all.jsp?arnumber=761918}
+  discrete-time Kalman filter},'' vol.~4, no. December, pp. 3972--3977, 1998.
+  [Online]. Available:
+  \url{http://ieeexplore.ieee.org/xpls/abs{\_}all.jsp?arnumber=761918}
 \BIBentrySTDinterwordspacing
 
 \bibitem{Julier2005}
@@ -53,9 +52,9 @@ S.~Julier and J.~Uhlmann, ``{Fusion of time delayed measurements with uncertain
 \bibitem{Mallick2001}
 \BIBentryALTinterwordspacing
 M.~Mallick, S.~Coraluppi, and C.~Carthel, ``{Advances in asynchronous and
-  decentralized estimation},'' \emph{\ldots Conference, 2001, IEEE \ldots},
-  vol.~4, pp. 1873--1888, 2001. [Online]. Available:
-  \url{http://ieeexplore.ieee.org/xpls/abs\_all.jsp?arnumber=931505}
+  decentralized estimation},'' vol.~4, pp. 1873--1888, 2001. [Online].
+  Available:
+  \url{http://ieeexplore.ieee.org/xpls/abs{\_}all.jsp?arnumber=931505}
 \BIBentrySTDinterwordspacing
 
 \bibitem{Bar-Shalom2002a}
@@ -66,17 +65,17 @@ Y.~Bar-Shalom, M.~Mallick, H.~Chen, and R.~Washburn, ``{One-step solution for
 \bibitem{Lanzkron2004}
 \BIBentryALTinterwordspacing
 P.~Lanzkron and Y.~Bar-Shalom, ``{A two-step method for out-of-sequence
-  measurements},'' \emph{Aerospace Conference, 2004. \ldots}, pp. 2036--2041,
-  2004. [Online]. Available:
-  \url{http://ieeexplore.ieee.org/xpls/abs\_all.jsp?arnumber=1367986}
+  measurements},'' \emph{Aerospace Conference, 2004.}, pp. 2036--2041, 2004.
+  [Online]. Available:
+  \url{http://ieeexplore.ieee.org/xpls/abs{\_}all.jsp?arnumber=1367986}
 \BIBentrySTDinterwordspacing
 
 \bibitem{Zhang2002}
 \BIBentryALTinterwordspacing
 K.~Zhang and X.~Li, ``{Optimal update with out-of-sequence measurements for
-  distributed filtering},'' \emph{Information Fusion, 2002. Proceedings of the
-  \ldots}, vol.~2, no.~1, pp. 1519--1526, 2002. [Online]. Available:
-  \url{http://ieeexplore.ieee.org/xpls/abs\_all.jsp?arnumber=1020997}
+  distributed filtering},'' \emph{Information Fusion, 2002.}, vol.~2, no.~1,
+  pp. 1519--1526, 2002. [Online]. Available:
+  \url{http://ieeexplore.ieee.org/xpls/abs{\_}all.jsp?arnumber=1020997}
 \BIBentrySTDinterwordspacing
 
 \bibitem{Bar-Shalom2002}
@@ -87,9 +86,9 @@ Y.~Bar-Shalom, ``{Update with out-of-sequence measurements in tracking: Exact
 \bibitem{Mallick2002}
 \BIBentryALTinterwordspacing
 M.~Mallick, J.~Krant, and Y.~Bar-Shalom, ``{Multi-sensor multi-target tracking
-  using out-of-sequence measurements},'' \emph{Information Fusion, 2002.
-  \ldots}, no. Fusion, pp. 135--142, 2002. [Online]. Available:
-  \url{http://ieeexplore.ieee.org/xpls/abs\_all.jsp?arnumber=1021142}
+  using out-of-sequence measurements},'' \emph{Information Fusion, 2002.}, no.
+  Fusion, pp. 135--142, 2002. [Online]. Available:
+  \url{http://ieeexplore.ieee.org/xpls/abs{\_}all.jsp?arnumber=1021142}
 \BIBentrySTDinterwordspacing
 
 \bibitem{Challa2002}
@@ -113,15 +112,15 @@ G.~L. Plett, D.~Zarzhitsky, and D.~J. Pack, ``{Out-of-order sigma-point Kalman
 J.~Kelly, S.~Saripalli, and G.~Sukhatme, ``{Combined visual and inertial
   navigation for an unmanned aerial vehicle},'' \emph{Field and Service
   Robotics}, vol.~42, pp. 255--264, 2008. [Online]. Available:
-  \url{http://link.springer.com/chapter/10.1007/978-3-540-75404-6\_24}
+  \url{http://link.springer.com/chapter/10.1007/978-3-540-75404-6{\_}24}
 \BIBentrySTDinterwordspacing
 
 \bibitem{Zhang2012}
 \BIBentryALTinterwordspacing
 S.~Zhang and Y.~Bar-Shalom, ``{Optimal Update with Multiple Out-of-Sequence
   Measurements with Arbitrary Arriving Order},'' \emph{Aerospace and Electronic
-  Systems, \ldots}, vol.~48, no.~4, pp. 3116--3132, 2012. [Online]. Available:
-  \url{http://ieeexplore.ieee.org/xpls/abs\_all.jsp?arnumber=6324681}
+  Systems}, vol.~48, no.~4, pp. 3116--3132, 2012. [Online]. Available:
+  \url{http://ieeexplore.ieee.org/xpls/abs{\_}all.jsp?arnumber=6324681}
 \BIBentrySTDinterwordspacing
 
 \bibitem{Beard2010a}
@@ -130,20 +129,20 @@ R.~W. Beard and T.~W. McLan, ``{State Estimation},'' in \emph{Small Unmanned
 
 \bibitem{Zogg2009}
 \BIBentryALTinterwordspacing
-J.~Zogg, ``{Gps: Essentials of satellite navigation},'' \emph{Compendium}, p.
+J.~Zogg, ``{GPS: Essentials of satellite navigation},'' \emph{Compendium}, p.
   174, 2009. [Online]. Available:
-  \url{http://scholar.google.com/scholar?hl=en\&btnG=Search\&q=intitle:GPS:+Essentials+of+Satellite+Navigation\#0
-  http://scholar.google.com/scholar?hl=en\&btnG=Search\&q=intitle:Gps–essentials+of+satellite+navigation\#0}
+  \url{http://scholar.google.com/scholar?hl=en{\&}btnG=Search{\&}q=intitle:GPS:+Essentials+of+Satellite+Navigation{\#}0
+  http://scholar.google.com/scholar?hl=en{\&}btnG=Search{\&}q=intitle:Gps–essentials+of+satellite+navigation{\#}0}
 \BIBentrySTDinterwordspacing
 
 \bibitem{Parkinson1996}
 B.~W. Parkinson, J.~J. Spilker, P.~Axelrad, and P.~Enge, \emph{{Global
-  Positioning System: Theory \& Applications, Volume I}}, 1st~ed.\hskip 1em
+  Positioning System: Theory {\&} Applications, Volume I}}, 1st~ed.\hskip 1em
   plus 0.5em minus 0.4em\relax American Institute of Aeronautics and
   Astronautics, 1996.
 
 \bibitem{Parkinson1996a}
-------, \emph{{Global Positioning System: Theory \& Applications, Volume
+------, \emph{{Global Positioning System: Theory {\&} Applications, Volume
   II}}.\hskip 1em plus 0.5em minus 0.4em\relax American Institute of
   Aeronautics and Astronautics, 1996.
 
@@ -169,7 +168,7 @@ J.~Rankin, ``{GPS and Differential GPS: An Error Model for Sensor
 \bibitem{Figliola2006}
 R.~Figliola and D.~Beasley, \emph{{Theory and Design for Mechanical
   Measurements}}.\hskip 1em plus 0.5em minus 0.4em\relax New York: John Wiley
-  \& Sons, Inc., 2006.
+  {\&} Sons, Inc., 2006.
 
 \bibitem{Maybeck1979}
 P.~S. Maybeck, \emph{{Stochastic Models, Estimation and Control: Volume 1}},

@@ -3,13 +3,13 @@
 % 
 %  A LaTeX class for the preparation of USU thesis' and dissertations.
 % 
-%  Time-stamp: "[usuthesis.cls] last modified by Scott Budge (scott) on 2011-10-12 (Wednesday, 12 October 2011) at 17:02:52 on goga"
+%  Time-stamp: "[usuthesis.cls] last modified by Scott Budge (scott) on 2016-07-28 (Thursday, 28 July 2016) at 09:31:54 on goga.ece.usu.edu"
 %
 %
-%  Info: $Id$   USU
-%  Revision: $Rev$
-% $LastChangedDate$
-% $LastChangedBy$
+%  Info: $Id: usuthesis.cls 967 2016-07-28 15:33:29Z scott $   USU
+%  Revision: $Rev: 967 $
+% $LastChangedDate: 2016-07-28 09:33:29 -0600 (Thu, 28 Jul 2016) $
+% $LastChangedBy: scott $
 %
 %  --- Usage ---
 %
@@ -17,7 +17,7 @@
 %
 %    Department - makes department specific format changes
 %    - ee
-%	 - ce
+%	   - ce
 %    - mae
 % 
 %    Document type - controls titlepage layout
@@ -115,10 +115,12 @@
 %
 % 2012-03-23 - 	Renamed the \year command to fix conflict with TikZ. The command 
 %	 						is now \gradyear
+% v2 2015-10-19	  Changed appearance of References for multi-paper, multi-bib format
+% 2015-10-19	  Changed headers to be all-caps, not bolded, normal size
 %%
 
 \NeedsTeXFormat{LaTeX2e}[1995/12/01]
-\ProvidesClass{usuthesis}[2007/06/04 rev 23 Revised USU thesis class]
+\ProvidesClass{usuthesis}[2016/07/28 Revised USU thesis class]
 
 %{{{ A handy macro for debugging: \IW{ <x> } will write <x> to the console
 % This idea from Mark Senn's puthesis.cls
@@ -374,7 +376,7 @@
 %{{{ Table of Contents
 \renewcommand*{\tableofcontents}{
     % USU requires the word "Contents" to appear on the toc page
-    \chapter*{\Large \begin{center} Contents\\[5ex]\end{center}}
+    \chapter*{ \begin{center} \textnormal{CONTENTS}\\[5ex]\end{center}}
     \hfill Page
     \@starttoc{toc}
 }
@@ -384,8 +386,8 @@
 % LoT should be single-spaced within entries and double-spaced between entries
 \renewcommand*{\listoftables}{
     \vskip0pt
-    \chapter*{\Large \begin{center} List of Tables  \end{center}}
-    \addcontentsline{toc}{chapter}{List of Tables}
+    \chapter*{ \begin{center} \textnormal{LIST OF TABLES}  \end{center}}
+    \addcontentsline{toc}{chapter}{\textnormal{LIST OF TABLES}}
     \addvspace{10pt}
     \typeout{!! List of Tables...!!}
     \noindent
@@ -405,8 +407,8 @@
 % LoF should be single-spaced within entries and double-spaced between entries 
 \renewcommand*{\listoffigures}{
     \vskip0pt
-    \chapter*{\Large \begin{center} List of Figures \end{center}}
-    \addcontentsline{toc}{chapter}{List of Figures}
+    \chapter*{\begin{center} \textnormal{LIST OF FIGURES} \end{center}}
+    \addcontentsline{toc}{chapter}{\textnormal{LIST OF FIGURES}}
     \addvspace{10pt} 
     \typeout{!! List of Figures...!!}
     \noindent
@@ -425,8 +427,8 @@
 %{{{ List of Algorithms
 \newcommand*{\listofalgs}{
     \vskip0pt
-    \chapter*{\Large \begin{center} List of Algorithms \end{center}}
-    \addcontentsline{toc}{chapter}{List of Algorithms}
+    \chapter*{\begin{center} \textnormal{LIST OF ALGORITHMS} \end{center}}
+    \addcontentsline{toc}{chapter}{\textnormal{LIST OF ALGORITHMS}}
     \addvspace{10pt} 
     \typeout{!! List of Algorithms...!!}
     \noindent
@@ -455,8 +457,8 @@
     \newenvironment{#1}
     % beginning definition
     {
-        \chapter*{\Large \begin{center} #2 \end{center}}
-        \addcontentsline{toc}{chapter}{#2}
+        \chapter*{\begin{center} \textnormal{#2} \end{center}}
+        \addcontentsline{toc}{chapter}{\textnormal{#2}}
         \vskip 00pt\par
         % set the line spacing 
         \begin{#3}
@@ -471,50 +473,38 @@
 
 %{{{ Define some frontmatter and backmatter environments
 % Acknowledgments
-\newfbmatter{acknowledgments}{Acknowledgments}{doublespacing}  
+\newfbmatter{acknowledgments}{\textnormal{ACKNOWLEDGMENTS}}{doublespacing}  
 % Notations
-\newfbmatter{notation}{Notation}{doublespacing}
+\newfbmatter{notation}{\textnormal{NOTATION}}{doublespacing}
 % Acronyms
-\newfbmatter{acronyms}{Acronyms}{singlespacing}
+\newfbmatter{acronyms}{\textnormal{ACRONYMS}}{singlespacing}
 % Vita
-\newfbmatter{vita}{Vita}{doublespacing}
+\newfbmatter{vita}{\textnormal{CURRICULUM VITAE}}{doublespacing}
 %}}}
 
 
-% Public abstract page environment
+% Public abstract page environment (MODIFIED)
 \newenvironment{publicabstract}
 % "begin of environment" definition
 {
     \newpage
     \null \vskip 26pt  
-    \addcontentsline{toc}{chapter}{Public Abstract}
+    \addcontentsline{toc}{chapter}{\textnormal{PUBLIC ABSTRACT}}
     \begin{center}
-        {\Large \textbf{Public Abstract}}\\
+        PUBLIC ABSTRACT\\
         % empty line creates required triple space 
         % between 'Abstract' and title
         \ \\
         \begin{doublespace}
-            \expandafter{\Ztitle}\\
+            \Ztitle \\
+            \Zauthor%\\
         \end{doublespace}
-            \ \\  % empty line to create required triple space
-            by\\
-            \ \\  % empty line to create required triple space
-        \begin{doublespace}
-            \expandafter{\Zauthor}\if@isproposal\else ,  \Zdegree \fi \\
-        \end{doublespace}
-            Utah State University, {\Zyear}\\
     \end{center}
-    \begin{singlespace}  % Make sure that we're single spaced
-        \ \\  % empty line to create required triple space
-        Major Professor: {\Zmajorprof}\\
-        Department: {\Zdepartmentname}\\
-    \end{singlespace}
     \begin{doublespace}
+    \vspace*{-2em}
 }
-% "end of environment" definition}
 {
     \end{doublespace}
-
 }
 
 %{{{{ Abstract page environment
@@ -523,9 +513,9 @@
 {
     \newpage
     \null \vskip 26pt  
-    \addcontentsline{toc}{chapter}{Abstract}
+    \addcontentsline{toc}{chapter}{\textnormal{ABSTRACT}}
     \begin{center}
-        {\Large \textbf{Abstract}}\\
+        ABSTRACT\\
         % empty line creates required triple space 
         % between 'Abstract' and title
         \ \\
@@ -570,16 +560,16 @@
 }
 %}}}
 
-%{{{ Title page
+%{{{ Title page (MODIFIED)
 \renewcommand*{\maketitle}%
 {{
     \thispagestyle{empty}
     \begin{center}
         \null\vskip 1\baselineskip
         \begin{doublespace}  % USU requires doublespace title
-            \large\uppercase\expandafter{\Ztitle}\\
+            \uppercase\expandafter{\Ztitle}%\\ Also removed \large from the title.
             \ \\
-            by\\
+            by%\\
             \ \\
         \end{doublespace}
         \Zauthor\\[1\baselineskip]
@@ -723,20 +713,46 @@
 
 %}}}
 
+%%{{{ BibTeX references - first parameter is .bib, second is bibstyle
+%\newcommand{\@@bibname}{References}
+%\renewcommand\bibname{\Large\bf \@@bibname}
+%\newcommand{\references}[2]
+%{
+%    \clearpage
+%    \refstepcounter{chapter}
+%    \addcontentsline{toc}{chapter}{\@@bibname}
+%    \begin{singlespace}
+%        \bibliography{#1}
+%        \bibliographystyle{#2}
+%    \end{singlespace}
+%}
+%%}}}
+
 %{{{ BibTeX references - first parameter is .bib, second is bibstyle
-\newcommand{\@@bibname}{References}
-\renewcommand\bibname{\Large\bf \@@bibname}
+\newcommand{\@@bibname}{REFERENCES}
+\renewcommand\bibname{\@@bibname} % Don't make large and bold
 \newcommand{\references}[2]
 {
-    \clearpage
-    \refstepcounter{chapter}
-    \addcontentsline{toc}{chapter}{\@@bibname}
+%    \clearpage
+    \refstepcounter{section}
+    \addcontentsline{toc}{chapter}{\@@bibname} % Don't add to table of contents
     \begin{singlespace}
         \bibliography{#1}
         \bibliographystyle{#2}
     \end{singlespace}
 }
 %}}}
+
+%%{{{ BibTeX references - first parameter is .bib, second is bibstyle
+%\newcommand{\chapterreferences}[2]
+%{
+%    \refstepcounter{section}
+%    \begin{singlespace}
+%        \bibliography{#1}
+%        \bibliographystyle{#2}
+%    \end{singlespace}
+%}
+%%}}}
 
 %{{{ Appendices 
 % Set up the appendix section by creating a coversheet and resetting the 
@@ -750,9 +766,9 @@
     \refstepcounter{chapter}
     \null\vfil
     \begin{center}
-        {\Large\textbf{Appendix}}
+        APPENDIX
     \end{center}
-    \addcontentsline{toc}{chapter}{Appendix} 
+    \addcontentsline{toc}{chapter}{\textnormal{APPENDIX}} 
     \vfil\clearpage
 \setcounter{chapter}{0}  % tkm 4/16/12
 \renewcommand{\thechapter}{\Alph{chapter}}   % tkm 4/16/12
@@ -780,9 +796,9 @@
     \refstepcounter{chapter}
     \null\vfil
     \begin{center}
-        {\Large\textbf{Appendices}}
+        APPENDICES
     \end{center}
-    \addcontentsline{toc}{chapter}{Appendices} 
+    \addcontentsline{toc}{chapter}{\textnormal{APPENDICES}} 
     \vfil\clearpage
     
     \setcounter{chapter}{0}%
@@ -856,16 +872,15 @@
                     \fi}
 %}}}
 
-\def\@chapapp{Chapter}
+\def\@chapapp{CHAPTER}
 %{{{ Heading for \chapter command (includes chapter number)
 \def\@makechapterhead#1{             
     \vspace*{25pt}                          % Space at top of text page.
     { 
         \parindent 0pt \leftskip=0pt plus 1filll \rightskip=\leftskip
-        \bf \Large \@chapapp{} \thechapter  % 'Chapter' and number.
+        \@chapapp{} \thechapter    			% 'Chapter' and number.
         \par
-        \bf                                 % Title.
-        \Large #1\par
+        #1\par								% Title.
         \nobreak                            % TeX penalty to prevent page break.
         \vskip 0.27\baselineskip            % Space between title and text.
     } 
@@ -876,12 +891,11 @@
         \parindent 0pt \leftskip=0pt plus 1filll \rightskip=\leftskip
 
 \ifthenelse{\boolean{oneappendix}}{}{  % tkm 5/8/12
-        \bf \Large \@chapapp{} \thechapter  % 'Chapter' and number.
+        \@chapapp{} \thechapter  % 'Chapter' and number.
         \par
 }  % tkm 5/8/12
 
-        \bf                                 % Title.
-        \Large #1\par
+        #1\par								% Title.
         \nobreak                            % TeX penalty to prevent page break.
         \vskip 0.27\baselineskip            % Space between title and text.
     } 
@@ -892,8 +906,7 @@
     \vspace*{10pt}                         % Space at top of page.
     { 
         \parindent 0pt \leftskip=0pt plus 1filll \rightskip=\leftskip
-        \bf                                % Title.
-        #1\par
+        #1\par								% Title.
         \nobreak                           % TeX penalty to prevent page break.
         \vskip 0.1pt plus 0pt minus 0pt    % Space between title and text.
     }  
@@ -929,7 +942,7 @@
     \begingroup
         \parindent \z@ \rightskip \@pnumwidth
         \parfillskip -\@pnumwidth
-        \bf \leavevmode #1\mydotfill \hbox to\@pnumwidth{\hss #2}
+        \leavevmode #1\mydotfill \hbox to\@pnumwidth{\hss #2}
         \par
     \endgroup
 }
@@ -988,4 +1001,3 @@
 \endinput
 %%
 %% End of file 'usuthesis.cls'.
-
