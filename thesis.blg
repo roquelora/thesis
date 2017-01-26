@@ -4,13 +4,13 @@ A level-1 auxiliary file: publicabstract.aux
 A level-1 auxiliary file: dedication.aux
 A level-1 auxiliary file: acknowl.aux
 A level-1 auxiliary file: acronyms.aux
-A level-1 auxiliary file: introduction.aux
+A level-1 auxiliary file: INTRODUCTION.aux
 A level-1 auxiliary file: background.aux
-A level-1 auxiliary file: sensors.aux
-A level-1 auxiliary file: simulation.aux
-A level-1 auxiliary file: results.aux
+A level-1 auxiliary file: SENSORS.aux
+A level-1 auxiliary file: SIMULATION.aux
+A level-1 auxiliary file: RESULTS.aux
 A level-1 auxiliary file: discussion.aux
-A level-1 auxiliary file: conclusion.aux
+A level-1 auxiliary file: CONCLUSION.aux
 The style file: IEEEtran.bst
 Database file #1: IEEEabrv.bib
 Database file #2: library.bib
